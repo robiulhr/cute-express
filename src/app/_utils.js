@@ -63,7 +63,6 @@ const passDefaultHandler = function (AllHandlersForTheMethod, defaultHandler) {
 const selectRouteHandler = function (routes, methodName, reqUrl, reqObject) {
   let routeHandler;
   const AllHandlersForTheMethod = routes._allRoutes[methodName];
-  console.log(AllHandlersForTheMethod,methodName)
   for (let registeredUrl in AllHandlersForTheMethod) {
     if (reqUrl === '/') {
       if (AllHandlersForTheMethod[reqUrl]) routeHandler = AllHandlersForTheMethod[reqUrl];

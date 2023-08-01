@@ -36,6 +36,10 @@ app.post(
   }
 );
 
+// polls router
+const polls = require("../routers/polls");
+app.use("/polls", polls);
+
 // create router
 const creatRouter = require("../routers/creat");
 app.use("/", creatRouter);

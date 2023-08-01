@@ -64,7 +64,7 @@ const response = {
    * @param {String} path 
    * @returns {Object}
    */
-  redirect: function (path) {
+  redirect: function (path, resData) {
     const hostName = this.req.headers.host
     const url = "http://" + hostName + path
     if (!stringIsAValidUrl(url)) {

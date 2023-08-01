@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "95e5eb9f-1bc3-45ac-9b9e-3c3014c60816",
+		"name": "poll app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16956928"
+	},
+	"item": [
+		{
+			"name": "home page",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\"name\": \"Hello world 22\",\n        \"description\": \"Hello world 2\",\n        \"options\": [\n            {\n                \"name\": \"Option 1\",\n                \"vote\": 1,\n                \"_id\": \"64c35cc452003bb46e9f5b40\"\n            },\n            {\n                \"name\": \"Option 2\",\n                \"vote\": 0,\n                \"_id\": \"64c35cc452003bb46e9f5b41\"\n            },\n            {\n                \"name\": \"Option 3\",\n                \"vote\": 0,\n                \"_id\": \"64c35cc452003bb46e9f5b42\"\n            }\n        ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "page not found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/ijer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"ijer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create page",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\"name\": \"Hello world 32\",\n        \"description\": \"Hello world 2\",\n        \"options\": [\n            {\n                \"name\": \"Option 1\",\n                \"vote\": 1,\n                \"_id\": \"64c35cc452003bb46e9f5b40\"\n            },\n            {\n                \"name\": \"Option 2\",\n                \"vote\": 0,\n                \"_id\": \"64c35cc452003bb46e9f5b41\"\n            },\n            {\n                \"name\": \"Option 3\",\n                \"vote\": 0,\n                \"_id\": \"64c35cc452003bb46e9f5b42\"\n            }\n        ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create submit page",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\"name\": \"Hello world 42\",\n        \"description\": \"Hello world 2\",\n        \"options\": [\n            {\n                \"name\": \"Option 1\",\n                \"vote\": 1,\n                \"_id\": \"64c35cc452003bb46e9f5b40\"\n            },\n            {\n                \"name\": \"Option 2\",\n                \"vote\": 0,\n                \"_id\": \"64c35cc452003bb46e9f5b41\"\n            },\n            {\n                \"name\": \"Option 3\",\n                \"vote\": 0,\n                \"_id\": \"64c35cc452003bb46e9f5b42\"\n            }\n        ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/edit/64c35cc452003bb46e9f5b3f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"edit",
+						"64c35cc452003bb46e9f5b3f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit submit page",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"Hello world 24\",\n \"description\": \"Hello world 2\",\n \"options\": [\n            {\n                \"name\": \"Option 1\",\n                \"vote\": 1,\n                \"_id\": \"64c35cc452003bb46e9f5b40\"\n            },\n            {\n                \"name\": \"Option 2\",\n                \"vote\": 0,\n                \"_id\": \"64c35cc452003bb46e9f5b41\"\n            },\n            {\n                \"name\": \"Option 3\",\n                \"vote\": 0,\n                \"_id\": \"64c35cc452003bb46e9f5b42\"\n            }\n        ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/edit/64c35cc452003bb46e9f5b3f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"edit",
+						"64c35cc452003bb46e9f5b3f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "single polls page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/polls/64c35cc452003bb46e9f5b3f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"polls",
+						"64c35cc452003bb46e9f5b3f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "polls vote submit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"option\":\"64c891695e348599bae18293\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/polls/64c891695e348599bae18292",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"polls",
+						"64c891695e348599bae18292"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete poll",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/delete/64c35cc452003bb46e9f5b3f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"delete",
+						"64c35cc452003bb46e9f5b3f"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

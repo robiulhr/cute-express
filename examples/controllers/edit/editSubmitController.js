@@ -12,6 +12,7 @@ module.exports = editSubmitPollController = async function (req, res) {
   if (client === "connected") {
     try {
       await Poll.findOne({ _id: pollId }).then((poll) => {
+        console.log(poll,"console from edit Submit controller")
         if (poll.name !== body.name) {
           poll.name = body.name;
           poll.markModified("name");
@@ -33,6 +34,7 @@ module.exports = editSubmitPollController = async function (req, res) {
       });
       res.status(301).redirect(`/polls/${pollId}`);
     } catch (err) {
+      console.log(err)
       await mongoose.connection.close().then(function () {
         console.log("Mongoose connection closed");
       });

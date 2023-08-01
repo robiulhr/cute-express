@@ -5,36 +5,32 @@ const db = require("../../db/db");
 // modals
 const Poll = require("../../modals/modal");
 
-
-module.exports = editPollController = async function (req, res) {
+module.exports = voteToPollController = async function (req, res) {
   const pollId = req.params.id;
+  const voteFor = req.body.option;
   const client = await db();
   if (client === "connected") {
-    await Poll.find({ _id: pollId })
-      .then(function (polls) {
+    await Poll.findOneAndUpdate(
+      { "options._id": voteFor },
+      { $inc: { "options.$.vote": 1, totalVote: 1 } }
+    )
+      .then(function (poll) {
         mongoose.connection.close().then(function () {
           console.log("Mongoose connection closed");
         });
-        return polls[0];
       })
       .then(function (poll) {
-        res.status(200).json({
-          poll,
-          massgae: "succesfull"
-        });
+        res.redirect(`/polls/${pollId}`);
       })
       .catch((err) => {
         mongoose.connection.close().then(function () {
           console.log("Mongoose connection closed");
         });
-        res.status(500).json({
-          massage: "Something went wrong. Please, try again later.",
-          error: err
+        res.json({
+          massage:"something went wrong"
         });
       });
   } else {
-    res.status(400).json({
-      massage: "Something went wrong. Please, try again later."
-    });
+    res.redirect(`/`);
   }
-}
+};
