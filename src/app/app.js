@@ -28,16 +28,9 @@ const handleRequest = function (req, res) {
     methodName,
     reqUrl
   );
-  /**
-   * creating array for the route handlers and middlewares. 
-   * To avoid scenario where the route doesn't have any middleware 
-   * The only route handler is available That means routeHandlerAndMiddlewares is a funciton.
-   */
-  let routeHandlerAndMiddlewaresArr;
-  if (isFunction(routeHandlerAndMiddlewares)) routeHandlerAndMiddlewaresArr = [routeHandlerAndMiddlewares]
-  else routeHandlerAndMiddlewaresArr = [...routeHandlerAndMiddlewares]
+  console.log(routeHandlerAndMiddlewares)
   // put all global and route specific middlewares and route handler in array
-  const allRouteHandlersAndMiddlewares = [...globalMiddlewares._allGlobalMiddlewares, ...routeHandlerAndMiddlewaresArr]
+  const allRouteHandlersAndMiddlewares = [...globalMiddlewares._allGlobalMiddlewares, ...routeHandlerAndMiddlewares]
   // calls all global and route specific middlewares and route handler depending on next call
   callRouteHandlerAndMiddlewares(
     allRouteHandlersAndMiddlewares,

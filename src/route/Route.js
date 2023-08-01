@@ -1,4 +1,4 @@
-const { methodHandler } = require("./_utils");
+const { handlerAssigner } = require("../globalService/globalService");
 module.exports = route = {
   _allRoutes: {
     ALL: {},
@@ -15,7 +15,7 @@ module.exports = route = {
    * @returns {Object}
    */
   get: function (path, ...handlers) {
-    methodHandler("GET", this._allRoutes, path, handlers);
+    handlerAssigner("GET", this._allRoutes, path, handlers);
     return this;
   },
   /**
@@ -25,7 +25,7 @@ module.exports = route = {
    * @returns {Object}
    */
   post: function (path, ...handlers) {
-    methodHandler("POST", this._allRoutes, path, handlers);
+    handlerAssigner("POST", this._allRoutes, path, handlers);
     return this;
   },
   /**
@@ -35,7 +35,7 @@ module.exports = route = {
    * @returns {Object}
    */
   put: function (path, ...handlers) {
-    methodHandler("PUT", this._allRoutes, path, handlers);
+    handlerAssigner("PUT", this._allRoutes, path, handlers);
     return this;
   },
   /**
@@ -45,7 +45,7 @@ module.exports = route = {
    * @returns {Object}
    */
   patch: function (path, ...handlers) {
-    methodHandler("PATCH", this._allRoutes, path, handlers);
+    handlerAssigner("PATCH", this._allRoutes, path, handlers);
     return this;
   },
   /**
@@ -55,7 +55,7 @@ module.exports = route = {
    * @returns {Object}
    */
   delete: function (path, ...handlers) {
-    methodHandler("DELETE", this._allRoutes, path, handlers);
+    handlerAssigner("DELETE", this._allRoutes, path, handlers);
     return this;
   },
   all: function () {},

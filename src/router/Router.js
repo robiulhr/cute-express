@@ -1,4 +1,5 @@
-const { pathAndHandlerChecker } = require("./utils");
+const { handlerAssigner } = require("../globalService/globalService");
+
 module.exports = Router = function () {
   return {
     routerHandlers: {
@@ -12,94 +13,54 @@ module.exports = Router = function () {
     /**
      * Handles Get request for router
      * @param {String} path
-     * @param {Function} handler
+     * @param {Array} handlers
      * @returns {void,Object}
      */
-    get: function (path, handler) {
-      // input validation
-      pathAndHandlerChecker(path, handler);
-      // path already assigned
-      if (this.routerHandlers.GET[path]) {
-        console.log(`This path ${path} is already in use.`);
-        return;
-      }
-      // assign the path and handler
-      this.routerHandlers.GET[path] = handler;
+    get: function (path, ...handlers) {
+      handlerAssigner("GET", this.routerHandlers, path, handlers);
       return this;
     },
     /**
      * Handles Post request for router
      * @param {String} path
-     * @param {Function} handler
+     * @param {Array} handlers
      * @returns {void,Object}
      */
-    post: function (path, handler) {
-      // input validation
-      pathAndHandlerChecker(path, handler);
-      // path already assigned
-      if (this.routerHandlers.POST[path]) {
-        console.log(`This path ${path} is already in use.`);
-        return;
-      }
-      // assign the path and handler
-      this.routerHandlers.POST[path] = handler;
+    post: function (path, ...handlers) {
+      handlerAssigner("POST", this.routerHandlers, path, handlers);
       return this;
     },
     /**
      * Handles Put request for router
      * @param {String} path
-     * @param {Function} handler
+     * @param {Array} handlers
      * @returns {void,Object}
      */
-    put: function (path, handler) {
-      // input validation
-      pathAndHandlerChecker(path, handler);
-      // path already assigned
-      if (this.routerHandlers.PUT[path]) {
-        console.log(`This path ${path} is already in use.`);
-        return;
-      }
-      // assign the path and handler
-      this.routerHandlers.PUT[path] = handler;
+    put: function (path, ...handlers) {
+      handlerAssigner("PUT", this.routerHandlers, path, handlers);
       return this;
     },
     /**
      * Handles Patch request for router
      * @param {String} path
-     * @param {Function} handler
+     * @param {Array} handlers
      * @returns {void,Object}
      */
-    patch: function (path, handler) {
-      // input validation
-      pathAndHandlerChecker(path, handler);
-      // path already assigned
-      if (this.routerHandlers.PATCH[path]) {
-        console.log(`This path ${path} is already in use.`);
-        return;
-      }
-      // assign the path and handler
-      this.routerHandlers.PATCH[path] = handler;
+    patch: function (path, handlers) {
+      handlerAssigner("PATCH", this.routerHandlers, path, handlers);
       return this;
     },
     /**
      * Handles Delete request for router
      * @param {String} path
-     * @param {Function} handler
+     * @param {Array} handlers
      * @returns {void,Object}
      */
-    delete: function (path, handler) {
-      // input validation
-      pathAndHandlerChecker(path, handler);
-      // path already assigned
-      if (this.routerHandlers.DELETE[path]) {
-        console.log(`This path ${path} is already in use.`);
-        return;
-      }
-      // assign the path and handler
-      this.routerHandlers.DELETE[path] = handler;
+    delete: function (path, ...handlers) {
+      handlerAssigner("DELETE", this.routerHandlers, path, handlers);
       return this;
     },
-    route: function (path, handler) {},
-    all: function (path, handler) {},
+    route: function (path, ...handlers) { },
+    all: function (path, ...handlers) { },
   };
 };
