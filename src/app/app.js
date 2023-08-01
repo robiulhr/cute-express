@@ -4,11 +4,10 @@ const globalMiddlewares = require("../middleware/Middleware");
 const Response = require("../response/Response");
 const Request = require("../request/Request");
 const {
-  reqParamsHandler,
   selectRouteHandler,
   callRouteHandlerAndMiddlewares,
 } = require("./_utils");
-const { checkWholePossitiveNumber, isFunction } = require("../globalUtils/globalUtils");
+const { checkWholePossitiveNumber } = require("../globalUtils/globalUtils");
 
 /**
  * Supporting function handler for the server and implementing the next() functionality.
@@ -20,15 +19,13 @@ const handleRequest = function (req, res) {
   const reqObject = Object.assign(req, Request);
   const methodName = reqObject.method.toUpperCase();
   const reqUrl = reqObject.url;
-  // handle req params 
-  reqParamsHandler(reqUrl, reqObject)
   // selecting appropriete houteHandler
   const routeHandlerAndMiddlewares = selectRouteHandler(
     Routes,
     methodName,
-    reqUrl
+    reqUrl,
+    reqObject
   );
-  console.log(routeHandlerAndMiddlewares)
   // put all global and route specific middlewares and route handler in array
   const allRouteHandlersAndMiddlewares = [...globalMiddlewares._allGlobalMiddlewares, ...routeHandlerAndMiddlewares]
   // calls all global and route specific middlewares and route handler depending on next call

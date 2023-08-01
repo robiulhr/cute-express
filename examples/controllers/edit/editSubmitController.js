@@ -12,8 +12,8 @@ module.exports = editSubmitPollController = async function (req, res) {
   if (client === "connected") {
     try {
       await Poll.findOne({ _id: pollId }).then((poll) => {
-        if (poll.name !== body.title) {
-          poll.name = body.title;
+        if (poll.name !== body.name) {
+          poll.name = body.name;
           poll.markModified("name");
         }
         if (poll.description !== body.description) {
@@ -39,9 +39,8 @@ module.exports = editSubmitPollController = async function (req, res) {
       res.status(301).redirect("/create");
     }
   } else {
-    res.render("./pages/create", {
-      title: "Something went wrong.",
-      error: "Something went wrong. Please, try again later.",
+    res.stats(400).json({
+      massage: "Something went wrong. Please, try again later.",
     });
   }
 };

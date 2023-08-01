@@ -10,7 +10,7 @@ module.exports = submitPollController = async function (req, res) {
   const client = await db();
   if (client === "connected") {
     const data = {
-      name: body.title,
+      name: body.name,
       description: body.description,
       options: body.options.map((ele) => {
         return { name: ele, vote: 0 };

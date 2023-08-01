@@ -1,12 +1,12 @@
- // database
- const mongoose = require("mongoose");
- const db = require("../../db/db");
- 
- // modals
- const Poll = require("../../modals/modal");
+// database
+const mongoose = require("mongoose");
+const db = require("../../db/db");
+
+// modals
+const Poll = require("../../modals/modal");
 
 
-module.exports = editPollController = async function(req,res){
+module.exports = editPollController = async function (req, res) {
   const pollId = req.params.id;
   const client = await db();
   if (client === "connected") {
@@ -18,10 +18,9 @@ module.exports = editPollController = async function(req,res){
         return polls[0];
       })
       .then(function (poll) {
-        res.render("./pages/create", {
-          title: poll.name,
+        res.status(200).json({
           poll,
-          error: null,
+          massgae: "succesfull"
         });
       })
       .catch((err) => {
@@ -29,17 +28,14 @@ module.exports = editPollController = async function(req,res){
         mongoose.connection.close().then(function () {
           console.log("Mongoose connection closed");
         });
-        res.render("./pages/create", {
-          title: "Something went wrong.",
-          poll: null,
-          error: "Something went wrong. Please, try again later.",
+        res.status(500).json({
+          massage: "Something went wrong. Please, try again later.",
+          error: err
         });
       });
   } else {
-    res.render("./pages/create", {
-      title: "Something went wrong.",
-      poll: null,
-      error: "Something went wrong. Please, try again later.",
+    res.status(400).json({
+      massage: "Something went wrong. Please, try again later."
     });
   }
 }

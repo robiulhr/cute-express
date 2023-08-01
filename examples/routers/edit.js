@@ -6,6 +6,6 @@ const router = express.Router();
 const editPollController = require("../controllers/edit/editPollController");
 const editSubmitPollController = require("../controllers/edit/editSubmitController")
 router.get("/:id", editPollController);
-router.post("/:id",editSubmitPollController);
+router.put("/:id",editSubmitPollController);
 
 module.exports = router;

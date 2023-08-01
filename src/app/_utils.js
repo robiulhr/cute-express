@@ -2,8 +2,18 @@ const { defaultHandler } = require("../route/_utils");
 
 
 
-const reqParamsHandler = function (url, reqObject) {
-  console.log(url)
+const reqParamsHandler = function (registeredUrl, reqUrl, reqObject) {
+  const registeredUrlParts = registeredUrl.split('/')
+  const reqUrlParts = reqUrl.split('/')
+  const params = {};
+
+  for (let i = 0; i < registeredUrlParts.length; i++) {
+    if (registeredUrlParts[i].startsWith(':')) {
+      const paramName = registeredUrlParts[i].slice(1);
+      params[paramName] = reqUrlParts[i];
+    }
+  }
+  reqObject.params = params
 }
 
 /**
@@ -27,27 +37,46 @@ const matchRouteHandlerReqUrl = function (registeredUrl, reqUrl) {
   })
   return result
 }
+
+/**
+ * checks if any not found handler is available. if so, returns it Otherwise, returns defaultHandler
+ * @param {Object} AllHandlersForTheMethod 
+ * @param {Function} defaultHandler 
+ * @returns {Array}
+ */
+const passDefaultHandler = function (AllHandlersForTheMethod, defaultHandler) {
+  let routeHandler;
+  routeHandler = AllHandlersForTheMethod["*"]
+    ? AllHandlersForTheMethod["*"]
+    : [defaultHandler];
+  return routeHandler
+}
+
 /**
  * Select which route handler should be run depending the request URL
  * @param {Object} routes
  * @param {String} methodName
  * @param {String} reqUrl
+ * @param {Object} reqObject
  * @returns {Array}
  */
-const selectRouteHandler = function (routes, methodName, reqUrl) {
+const selectRouteHandler = function (routes, methodName, reqUrl, reqObject) {
   let routeHandler;
   const AllHandlersForTheMethod = routes._allRoutes[methodName];
+  console.log(AllHandlersForTheMethod,methodName)
   for (let registeredUrl in AllHandlersForTheMethod) {
     if (reqUrl === '/') {
-      routeHandler = AllHandlersForTheMethod[reqUrl];
+      if (AllHandlersForTheMethod[reqUrl]) routeHandler = AllHandlersForTheMethod[reqUrl];
+      else routeHandler = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
       return routeHandler
     }
     else if (!matchRouteHandlerReqUrl(registeredUrl, reqUrl)) {
-      routeHandler = AllHandlersForTheMethod["*"]
-        ? AllHandlersForTheMethod["*"]
-        : [defaultHandler];
+      routeHandler = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
     } else {
       routeHandler = AllHandlersForTheMethod[registeredUrl];
+      if (registeredUrl.includes(":")) {
+        reqParamsHandler(registeredUrl, reqUrl, reqObject)
+      }
       return routeHandler
     }
   }
@@ -84,7 +113,6 @@ const callRouteHandlerAndMiddlewares = function (
 
 
 module.exports = {
-  reqParamsHandler,
   selectRouteHandler,
   callRouteHandlerAndMiddlewares
 };

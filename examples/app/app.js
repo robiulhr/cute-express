@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.row({ type: 'text/html' }))
 app.use((req, res, next) => {
-  console.log(req.body, "from global middleware");
+  console.log(req.body, req.params, "from global middleware");
   next()
 });
 
@@ -46,7 +46,7 @@ app.use("/edit", edit);
 
 // delete router
 const deletePoll = require("../routers/delete");
-app.use("/delete",deletePoll);
+app.use("/delete", deletePoll);
 // controllers
 const homeGetController = require("../controllers/homeGetController");
 const notFoundController = require("../controllers/notFoundController");
