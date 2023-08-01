@@ -59,8 +59,6 @@ module.exports = Router = function () {
     delete: function (path, ...handlers) {
       handlerAssigner("DELETE", this.routerHandlers, path, handlers);
       return this;
-    },
-    route: function (path, ...handlers) { },
-    all: function (path, ...handlers) { },
+    }
   };
 };

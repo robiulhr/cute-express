@@ -52,13 +52,7 @@ const listen = function (port, host, handler) {
   http.createServer(handleRequest).listen(port, host, handler);
 };
 
-const set = function () { };
-
-const param = function () { };
-
 module.exports = {
   handleRequest,
   listen,
-  set,
-  param,
 };

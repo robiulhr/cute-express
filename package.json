@@ -1,0 +1,28 @@
+{
+  "name": "tiny-express",
+  "version": "1.0.0",
+  "description": "Tiny Express is a custom implementation of the popular Node.js web application framework Express js.",
+  "main": "",
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robiulhr/tiny-express.git"
+  },
+  "author": "Robiul H.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robiulhr/tiny-express/issues"
+  },
+  "homepage": "https://github.com/robiulhr/tiny-express#readme",
+  "devDependencies": {
+    "jest": "^29.6.2",
+    "supertest": "^6.3.3"
+  }
+}
