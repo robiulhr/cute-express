@@ -4,11 +4,11 @@ const globalMiddlewares = require("../middleware/Middleware");
 const Response = require("../response/Response");
 const Request = require("../request/Request");
 const {
+  reqParamsHandler,
   selectRouteHandler,
-  callGlobalMiddlewares,
   callRouteHandlerAndMiddlewares,
 } = require("./_utils");
-const { checkWholePossitiveNumber } = require("../globalUtils/globalUtils");
+const { checkWholePossitiveNumber, isFunction } = require("../globalUtils/globalUtils");
 
 /**
  * Supporting function handler for the server and implementing the next() functionality.
@@ -20,20 +20,31 @@ const handleRequest = function (req, res) {
   const reqObject = Object.assign(req, Request);
   const methodName = reqObject.method.toUpperCase();
   const reqUrl = reqObject.url;
-  // calls all global middlewares depending on next call
-  callGlobalMiddlewares(globalMiddlewares, reqObject, resObject);
+  // handle req params 
+  reqParamsHandler(reqUrl, reqObject)
   // selecting appropriete houteHandler
   const routeHandlerAndMiddlewares = selectRouteHandler(
     Routes,
     methodName,
     reqUrl
   );
-  // calls all route specific middlewares and route handler depending on next call
+  /**
+   * creating array for the route handlers and middlewares. 
+   * To avoid scenario where the route doesn't have any middleware 
+   * The only route handler is available That means routeHandlerAndMiddlewares is a funciton.
+   */
+  let routeHandlerAndMiddlewaresArr;
+  if (isFunction(routeHandlerAndMiddlewares)) routeHandlerAndMiddlewaresArr = [routeHandlerAndMiddlewares]
+  else routeHandlerAndMiddlewaresArr = [...routeHandlerAndMiddlewares]
+  // put all global and route specific middlewares and route handler in array
+  const allRouteHandlersAndMiddlewares = [...globalMiddlewares._allGlobalMiddlewares, ...routeHandlerAndMiddlewaresArr]
+  // calls all global and route specific middlewares and route handler depending on next call
   callRouteHandlerAndMiddlewares(
-    routeHandlerAndMiddlewares,
+    allRouteHandlersAndMiddlewares,
     reqObject,
     resObject
   );
+
 };
 
 /**
@@ -51,9 +62,9 @@ const listen = function (port, host, handler) {
   http.createServer(handleRequest).listen(port, host, handler);
 };
 
-const set = function () {};
+const set = function () { };
 
-const param = function () {};
+const param = function () { };
 
 module.exports = {
   handleRequest,

@@ -1,3 +1,5 @@
+const { isValidString } = require("../globalUtils/globalUtils")
+
 /**
  * This does not handle multipart bodies, due to their complex and typically large nature.
  * This module provides the following parsers:
@@ -20,27 +22,35 @@ const bodyParser = {
         reqMethod === "PUT" ||
         reqMethod === "PATCH"
       ) {
-        let data = "";
-        req.on("data", (chunk) => {
-          data += chunk;
-        });
+        if (
+          req.headers["content-type"] === "application/x-www-form-urlencoded"
+        ) {
+          let data = "";
+          req.on("data", (chunk) => {
+            data += chunk;
+          });
 
-        req.on("end", () => {
-          if (
-            req.headers["content-type"] === "application/x-www-form-urlencoded"
-          ) {
+          req.on("end", () => {
             // Parse URL-encoded form data
             const urlencodedData = decodeURIComponent(data);
             const urlencodedParams = new URLSearchParams(urlencodedData);
             req.body = Object.fromEntries(urlencodedParams);
             // Call the next() function to continue the request handling
             next();
-          }
-        });
+          });
+        } else {
+          /**
+           *  Call the next() function to continue the request handling when the req.headers["content-type"] is not equal to "application/x-www-form-urlencoded"
+           */
+          next();
+        }
       } else {
-        // For other HTTP methods (e.g., GET, DELETE), simply call next() without parsing data
+        /**
+          *  For other HTTP methods (e.g., GET, DELETE), simply call next() without parsing data
+         */
         next();
       }
+
     };
   },
   /**
@@ -57,29 +67,97 @@ const bodyParser = {
         reqMethod === "PUT" ||
         reqMethod === "PATCH"
       ) {
-        let data = "";
-        req.on("data", (chunk) => {
-          data += chunk;
-        });
+        if (req.headers["content-type"] === "application/json") {
+          let data = "";
+          req.on("data", (chunk) => {
+            data += chunk;
 
-        req.on("end", () => {
-          if (req.headers["content-type"] === "application/json") {
+          });
+
+          req.on("end", () => {
             // Parse JSON data
             try {
               req.body = JSON.parse(data);
-              console.log(req.body);
+              // Call the next() function to continue the request handling
               next();
             } catch (error) {
               res.statusCode = 400;
               res.end("Invalid JSON payload");
             }
-          }
-        });
+          });
+        } else {
+          /**
+          *  Call the next() function to continue the request handling when the req.headers["content-type"] is not equal to "application/json"
+          */
+          next();
+        }
       } else {
+        /**
+         *  For other HTTP methods (e.g., GET, DELETE), simply call next() without parsing data
+         */
         next();
       }
     };
   },
+  /**
+   * handles req.headers['content-type'] === 'text/html' and req.headers['content-type'] === 'text/plain'
+   * @param {Object} options default value  { type: 'text/html' }
+   * @returns {Function}
+   */
+  row: function (options = { type: 'text/plain' }) {
+    return function (req, res, next) {
+      if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {
+        if (options?.type === 'text/html' && req.headers['content-type'] === 'text/html') {
+          let data = '';
+
+          // Listen for incoming data chunks
+          req.on('data', (chunk) => {
+            data += chunk;
+          });
+
+          // After all data chunks are received
+          req.on('end', () => {
+            req.body = data; // Assuming HTML data is sent as a string
+            next();
+          });
+        } else {
+          if (req.headers['content-type'] === 'text/plain') {
+            let data = '';
+
+            // Listen for incoming data chunks
+            req.on('data', (chunk) => {
+              data += chunk;
+            });
+
+            // After all data chunks are received
+            req.on('end', () => {
+              // Validate the data
+              if (isValidString(data)) {
+                req.body = data;
+                next();
+              } else {
+                res.statusCode = 400;
+                res.end('Invalid data format');
+              }
+            });
+          } else {
+            /**
+          *  Call the next() function to continue the request handling when the req.headers["content-type"] is not equal to 'text/plain' and 'text/html'
+          */
+            next()
+          }
+        }
+      } else {
+        /**
+        *  For other HTTP methods (e.g., GET, DELETE), simply call next() without parsing data
+        */
+        next();
+      }
+    }
+  }
 };
+
+
+
 
 module.exports = bodyParser;

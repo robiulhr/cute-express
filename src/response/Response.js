@@ -1,5 +1,6 @@
 const {
   checkPureObject,
+  stringIsAValidUrl,
   checkWholePossitiveNumber,
 } = require("../globalUtils/globalUtils");
 
@@ -58,8 +59,21 @@ const response = {
     this.end(jsonContent);
     return this;
   },
-  redirect:function(path){
-    
+  /**
+   * redirects to the given path
+   * @param {String} path 
+   * @returns {Object}
+   */
+  redirect: function (path) {
+    const hostName = this.req.headers.host
+    const url = "http://" + hostName + path
+    if (!stringIsAValidUrl(url)) {
+      console.error("please, provide a valid path")
+      return
+    }
+    this.writeHead(301, { Location: url });
+    this.end();
+    return this
   },
 };
 

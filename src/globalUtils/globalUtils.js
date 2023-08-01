@@ -1,3 +1,6 @@
+const URL = require("url").URL;
+
+
 /**
  * checks the input is valid Object or not.
  * @param {Object} obj
@@ -30,7 +33,7 @@ const isFunction = function (value) {
   return value instanceof Function;
 };
 /**
- * checks is the given object is empty or not.
+ * checks the given object is empty or not.
  * @param {Object} obj
  * @returns {Boolean}
  */
@@ -38,9 +41,44 @@ const isEmptyObject = function (obj) {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
 };
 
+/**
+ * checks the given input is valid string or not.
+ * @param {String} str 
+ * @returns {Boolean}
+ */
+const isValidString = function (str) {
+  if (!str || typeof str !== 'string') return false
+
+  const validRegEx = /^[^\\\/&]*$/
+
+  if (str.match(validRegEx)) {
+    return true
+  } else {
+    return false
+  }
+}
+
+
+/**
+ * checks given input is a valid url path
+ * @param {String} path 
+ * @returns {Boolean}
+ */
+const stringIsAValidUrl = (path) => {
+  try {
+    new URL(path);
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+
+
 module.exports = {
   checkPureObject,
   checkWholePossitiveNumber,
   isFunction,
   isEmptyObject,
+  isValidString,
+  stringIsAValidUrl
 };

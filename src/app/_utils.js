@@ -1,5 +1,4 @@
 const { defaultHandler } = require("../route/_utils");
-const { isFunction } = require("../globalUtils/globalUtils");
 
 /**
  * Select which route handler should be run depending the request URL
@@ -21,29 +20,7 @@ const selectRouteHandler = function (routes, methodName, reqUrl) {
 };
 
 /**
- * calls all global middlewares depending on next call
- * @param {Array} globalMiddlewares
- * @param {Object} reqObject
- * @param {Object} resObject
- *
- */
-const callGlobalMiddlewares = function (
-  globalMiddlewares,
-  reqObject,
-  resObject
-) {
-  let ind = 0;
-  function next() {
-    if (ind < globalMiddlewares._allGlobalMiddlewares.length) {
-      const singleMiddleware = globalMiddlewares._allGlobalMiddlewares[ind];
-      ind++;
-      singleMiddleware(reqObject, resObject, next);
-    }
-  }
-  next();
-};
-/**
- * calls all route specific middlewares and route handler depending on next call
+ * calls all global middlewares, route specific middlewares and route handler depending on next call
  * @param {Array} routeHandlerAndMiddlewares
  * @param {Object} reqObject
  * @param {Object} resObject
@@ -55,27 +32,24 @@ const callRouteHandlerAndMiddlewares = function (
 ) {
   let ind = 0;
   function next() {
-    // handling all global middlewares and routes handlers
-    if (isFunction(routeHandlerAndMiddlewares)) {
-      // calling the route handler
-      routeHandlerAndMiddlewares(reqObject, resObject);
+    if (ind < routeHandlerAndMiddlewares.length - 1) {
+      const singleMiddleware = routeHandlerAndMiddlewares[ind];
+      ind++;
+      // calling middleware for this route
+      singleMiddleware(reqObject, resObject, next);
     } else {
-      if (ind < routeHandlerAndMiddlewares.length - 1) {
-        const singleMiddleware = routeHandlerAndMiddlewares[ind];
-        ind++;
-        // calling middleware for this route
-        singleMiddleware(reqObject, resObject, next);
-      } else {
-        // calling the route handler
-        routeHandlerAndMiddlewares[ind](reqObject, resObject);
-      }
+      const routeHandler = routeHandlerAndMiddlewares[ind]
+      // calling the route handler
+      routeHandler(reqObject, resObject);
     }
   }
   next();
 };
 
+
+
 module.exports = {
+  reqParamsHandler,
   selectRouteHandler,
-  callGlobalMiddlewares,
-  callRouteHandlerAndMiddlewares,
+  callRouteHandlerAndMiddlewares
 };

@@ -7,16 +7,18 @@ const bodyParser = require("../../src/build-in middlewares/bodyParser");
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded());
 
-
 // parse application/json
 app.use(bodyParser.json());
 
+app.use(bodyParser.row({ type: 'text/html' }))
+app.use((req, res, next) => {
+  console.log(req.body, "from global middleware");
+  next()
+});
 
-app.use((req,res,next)=>{
-  console.log(req.body,'from global middleware')
-})
-
-// body parsers can be used as route specific middleware also
+/**
+ *  body parsers can be used as route specific middleware also
+ */
 // create application/json parser
 // var jsonParser = bodyParser.json();
 
@@ -26,17 +28,25 @@ app.use((req,res,next)=>{
 app.post(
   "/test",
   (req, res, next) => {
-    console.log(req.body,"req.body")
+    console.log(req.body, "req.body");
     next();
   },
   (req, res) => {
-    res.status(201).json({data:req.body});
+    res.status(201).json({ data: req.body });
   }
 );
 
-// router
+// create router
 const creatRouter = require("../routers/creat");
 app.use("/", creatRouter);
+
+// edit router
+const edit = require("../routers/edit");
+app.use("/edit", edit);
+
+// delete router
+const deletePoll = require("../routers/delete");
+app.use("/delete",deletePoll);
 // controllers
 const homeGetController = require("../controllers/homeGetController");
 const notFoundController = require("../controllers/notFoundController");
