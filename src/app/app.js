@@ -15,10 +15,15 @@ const { checkWholePossitiveNumber } = require("../globalUtils/globalUtils");
  * @param {Object} res
  */
 const handleRequest = function (req, res) {
+  const methodName = req.method.toUpperCase();
+  // handle unsupported http method type
+  if (!Routes._allSupportedMethods[methodName]) {
+    res.end(`Tiny Express Doesn't Support ${methodName} http method type`)
+    return
+  }
+  const reqUrl = req.url;
   const resObject = Object.assign(res, Response);
   const reqObject = Object.assign(req, Request);
-  const methodName = reqObject.method.toUpperCase();
-  const reqUrl = reqObject.url;
   // selecting appropriete houteHandler
   const routeHandlerAndMiddlewares = selectRouteHandler(
     Routes,

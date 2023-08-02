@@ -1,7 +1,13 @@
 const { handlerAssigner } = require("../globalService/globalService");
 module.exports = route = {
+  _allSupportedMethods: {
+    "GET": true,
+    "POST": true,
+    "PUT": true,
+    "PATCH": true,
+    "DELETE": true
+  },
   _allRoutes: {
-    ALL: {},
     GET: {},
     POST: {},
     PUT: {},
@@ -55,6 +61,23 @@ module.exports = route = {
    * @returns {Object}
    */
   delete: function (path, ...handlers) {
+    handlerAssigner("DELETE", this._allRoutes, path, handlers);
+    return this;
+  },
+  /**
+   * app.all(), used to load middleware functions at a path for all HTTP request methods. 
+   * For example, the following handler is executed for requests to the route “/secret” 
+   * whether using GET, POST, PUT, DELETE, or any other HTTP request method supported in the app.METHOD.
+   * @param {String} path 
+   * @param  {...Function} handlers 
+   * @returns {Object}
+   */
+  all: function (path, ...handlers) {
+    // puting the handler to all type of method handlers
+    handlerAssigner("GET", this._allRoutes, path, handlers);
+    handlerAssigner("POST", this._allRoutes, path, handlers);
+    handlerAssigner("PUT", this._allRoutes, path, handlers);
+    handlerAssigner("PATCH", this._allRoutes, path, handlers);
     handlerAssigner("DELETE", this._allRoutes, path, handlers);
     return this;
   }

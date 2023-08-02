@@ -3,7 +3,6 @@ const { handlerAssigner } = require("../globalService/globalService");
 module.exports = Router = function () {
   return {
     routerHandlers: {
-      ALL: {},
       GET: {},
       POST: {},
       PUT: {},
@@ -57,6 +56,23 @@ module.exports = Router = function () {
      * @returns {void,Object}
      */
     delete: function (path, ...handlers) {
+      handlerAssigner("DELETE", this.routerHandlers, path, handlers);
+      return this;
+    },
+    /**
+   * router.all(), used to load middleware functions at a path for all HTTP request methods. 
+   * For example, the following handler is executed for requests to the route “/secret” 
+   * whether using GET, POST, PUT, DELETE, or any other HTTP request method supported in the app.METHOD.
+   * @param {String} path 
+   * @param  {...Function} handlers 
+   * @returns {Object}
+   */
+    all: function (path, ...handlers) {
+      // puting the handler to all type of method handlers
+      handlerAssigner("GET", this.routerHandlers, path, handlers);
+      handlerAssigner("POST", this.routerHandlers, path, handlers);
+      handlerAssigner("PUT", this.routerHandlers, path, handlers);
+      handlerAssigner("PATCH", this.routerHandlers, path, handlers);
       handlerAssigner("DELETE", this.routerHandlers, path, handlers);
       return this;
     }

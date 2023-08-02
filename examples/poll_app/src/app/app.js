@@ -1,8 +1,8 @@
 // import  tinyExpress
-const tinyExpress = require("../../../src/tiny-express");
+const tinyExpress = require("../../../../src/tiny-express");
 const app = tinyExpress();
 // import custom bodyPareser
-const bodyParser = require("../../../src/build-in middlewares/bodyParser");
+const bodyParser = require("../../../../src/build-in middlewares/bodyParser");
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded());

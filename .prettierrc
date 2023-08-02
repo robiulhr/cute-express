@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "files": ["./src/*.js","./src/*/*.js","./docs/docs/*/*.md","./docs/docs/*.md","./test/*/*.js"],
+      "options": {
+        "tabWidth": 2,
+        "useTabs": false,
+        "proseWrap": "never",
+        "printWidth": 700,
+        "formatOnSave": true
+      }
+    }
+  ]
+}
