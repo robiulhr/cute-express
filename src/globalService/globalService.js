@@ -13,10 +13,7 @@ const handlerAssigner = function (methodType, allRouteObj, path, handlers) {
     console.log("please, provide a valid path");
     return;
   }
-  if (allRouteObj[methodType][path]) {
-    console.log(`This path ${path} is already in use.`);
-    return;
-  }
+  
   if (handlers.length < 1) {
     console.log("please, provide a handler.");
     return;

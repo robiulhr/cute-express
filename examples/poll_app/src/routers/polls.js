@@ -1,5 +1,5 @@
 // express
-const express = require("../../../src/tiny-express")
+const express = require("../../../../src/tiny-express")
 const router = express.Router()
 
 // controllers

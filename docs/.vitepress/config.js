@@ -3,7 +3,7 @@ export default {
     title: "Tiny Express",
     description: "An awesome docs template built by me",
     themeConfig: {
-        cleanUrls:true,
+        cleanUrls: true,
         nav: [
             { text: "Home", link: "/" },
             {
@@ -24,7 +24,11 @@ export default {
                     { text: "Examples", link: "/guide/examples" },
                 ]
             },
-            { text: "API Reference", link: "/api_reference" },
+            {
+                text: "API Reference", items: [
+                    { text: "1.x", link: "/api_reference/api_reference_1.x" },
+                ]
+            },
             { text: "Blog", link: "https://robiul.dev/" },
             { text: "Author", link: "https://robiulhr.github.io/" },
 
@@ -46,7 +50,7 @@ export default {
                     ],
                 }
             ],
-            "/guide/":[
+            "/guide/": [
                 {
                     text: "Guide",
                     collapsible: true,
@@ -58,6 +62,16 @@ export default {
                         { text: "Error Handling", link: "/guide/error_handling" },
                         { text: "Database Integration", link: "/guide/database_integration" },
                         { text: "Examples", link: "/guide/examples" },
+                    ],
+                }
+            ],
+            "/api_reference": [
+                {
+                    text: "API Reference 1.x",
+                    collapsible: true,
+                    items: [
+                        { text: "express()", link: "/api_reference/api_reference_1.x.html#express" },
+                        { text: "Methods", link: "/api_reference/api_reference_1.x.html#methods" },
                     ],
                 }
             ]

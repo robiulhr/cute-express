@@ -6,9 +6,8 @@ const Request = require("../request/Request");
 const {
   selectRouteHandler,
   callRouteHandlerAndMiddlewares,
-} = require("./_utils");
-const { checkWholePossitiveNumber } = require("../globalUtils/globalUtils");
-
+} = require("./_service");
+const { listenHandlerInputValidator } = require("./_utils")
 /**
  * Supporting function handler for the server and implementing the next() functionality.
  * @param {Object} req
@@ -49,12 +48,8 @@ const handleRequest = function (req, res) {
  * @param {Function} handler
  */
 const listen = function (port, host, handler) {
-  // arguments validation
-  if (!checkWholePossitiveNumber(port)) {
-    console.log("provide a valid port number.");
-    return;
-  }
-  http.createServer(handleRequest).listen(port, host, handler);
+  const { validatedPort, validatedHost, validatedHandler } = listenHandlerInputValidator(port, host, handler)
+  return http.createServer(handleRequest).listen(validatedPort, validatedHost, validatedHandler);
 };
 
 module.exports = {
