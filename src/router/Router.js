@@ -1,4 +1,6 @@
 const { handlerAssigner } = require("../globalService/globalService");
+const { isFunction } = require("../globalUtils/globalUtils");
+const { routeMethodPrototype } = require('../route/service')
 
 module.exports = Router = function () {
   return {
@@ -75,6 +77,39 @@ module.exports = Router = function () {
       handlerAssigner("PATCH", this.routerHandlers, path, handlers);
       handlerAssigner("DELETE", this.routerHandlers, path, handlers);
       return this;
+    },
+    /**
+     * You can create chainable route handlers for a route path by using app.route()
+     * @param {String} path 
+     * @returns 
+     */
+    route: function (path) {
+      // routeMethodHandlers is all stored route handlers object and all method handlers like get(), post() and more.
+      const routeMethodHandlers = routeMethodPrototype(path, this.routerHandlers)
+      return routeMethodHandlers
+    },
+    /**
+     * invoked for any requests passed to this router
+     * @param  {...Function} handles 
+     */
+    use: function (...handles) {
+      handles.forEach(ele => {
+        if (!isFunction(ele)) {
+          throw new Error("please, provide a function as the handler.")
+        }
+        for (let singleRouterHandler in this.routerHandlers) {
+          // single route handler object
+          const singleRouteHandlerObj = this.routerHandlers[singleRouterHandler]
+          for (let handlerPath in singleRouteHandlerObj) {
+            // all handlers for a specific method type and path
+            const handlersForPath = singleRouteHandlerObj[handlerPath]
+            // if this path doesn't exists
+            if (!handlersForPath) handlersForPath = []
+            // putting all route level middlewares for all route paths
+            handlersForPath.push(ele)
+          }
+        }
+      })
     }
-  };
+  }
 };

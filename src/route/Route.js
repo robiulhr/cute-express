@@ -1,3 +1,4 @@
+const { routeMethodPrototype } = require('./service')
 const { handlerAssigner } = require("../globalService/globalService");
 module.exports = route = {
   _allSupportedMethods: {
@@ -80,5 +81,15 @@ module.exports = route = {
     handlerAssigner("PATCH", this._allRoutes, path, handlers);
     handlerAssigner("DELETE", this._allRoutes, path, handlers);
     return this;
+  },
+  /**
+   * You can create chainable route handlers for a route path by using app.route()
+   * @param {String} path 
+   * @returns 
+   */
+  route: function (path) {
+    // routeMethodHandlers is all stored route handlers object and all method handlers like get(), post() and more.
+    const routeMethodHandlers = routeMethodPrototype(path, this._allRoutes)
+    return routeMethodHandlers
   }
 };

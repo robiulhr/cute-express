@@ -1,4 +1,4 @@
-const { defaultHandler } = require("../route/_utils");
+const { defaultHandler } = require("../globalService/globalService");
 
 
 /**

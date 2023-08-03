@@ -7,12 +7,12 @@ title: Hello World
 
 
 :::info
-Embedded below is essentially the simplest Express app you can create.
+Embedded below is essentially the simplest Tiny Express app you can create.
 :::
 
 ```js
-const express = require('express')
-const app = express()
+const tinyExpress = require('tiny-express')
+const app = tinyExpress()
 const port = 3000
 
 app.get('/', (req, res) => {

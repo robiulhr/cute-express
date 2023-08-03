@@ -2,18 +2,18 @@
 
 <hr>
 
-## express()
+## tinyExpress()
 
-Creates an Express application. The express() function is a top-level function exported by the express module.
+Creates an Tiny Express application. The tinyExpress() function is a top-level function exported by the Tiny express module.
 
 ```js
-var express = require("express");
-var app = express();
+var tinyExpress = require("tiny-express");
+var app = tinyExpress();
 ```
 
 ## Methods
 
-### express.json([options])
+### tinyExpress.json([options])
 
 ### app.all(path, callback [, callback ...])
 
@@ -28,18 +28,18 @@ Binds and listens for connections on the specified host and port. This method is
 The default `host` value is `localhost`. If the host is not defined the `localhost` will be applied as the `host` value.
 
 ```js
-var express = require("express");
-var app = express();
+var tinyExpress = require("tiny-express");
+var app = tinyExpress();
 app.listen(3000);
 ```
 
-The app returned by `express()` is in fact a JavaScript Function, designed to be passed to Node’s HTTP servers as a callback to handle requests. This makes it easy to provide both HTTP and HTTPS versions of your app with the same code base, as the app does not inherit from these (it is simply a callback):
+The app returned by `tinyExpress()` is in fact a JavaScript Function, designed to be passed to Node’s HTTP servers as a callback to handle requests. This makes it easy to provide both HTTP and HTTPS versions of your app with the same code base, as the app does not inherit from these (it is simply a callback):
 
 ```js
-var express = require("express");
+var tinyExpress = require("tiny-express");
 var https = require("https");
 var http = require("http");
-var app = express();
+var app = tinyExpress();
 
 http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
@@ -53,3 +53,6 @@ app.listen = function () {
   return server.listen.apply(server, arguments);
 };
 ```
+
+## Router
+
