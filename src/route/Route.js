@@ -1,5 +1,5 @@
 const { routeMethodPrototype } = require('./service')
-const { handlerAssigner } = require("../globalService/globalService");
+const { handlerAssigner, handlersSimplifierInArr } = require("../globalService/globalService");
 module.exports = route = {
   _allSupportedMethods: {
     "GET": true,
@@ -22,7 +22,9 @@ module.exports = route = {
    * @returns {Object}
    */
   get: function (path, ...handlers) {
-    handlerAssigner("GET", this._allRoutes, path, handlers);
+    // simplify the input handlers in simple Array
+    const handlersArr = handlersSimplifierInArr(handlers);
+    handlerAssigner("GET", this._allRoutes, path, handlersArr);
     return this;
   },
   /**
@@ -32,7 +34,9 @@ module.exports = route = {
    * @returns {Object}
    */
   post: function (path, ...handlers) {
-    handlerAssigner("POST", this._allRoutes, path, handlers);
+    // simplify the input handlers in simple Array
+    const handlersArr = handlersSimplifierInArr(handlers);
+    handlerAssigner("POST", this._allRoutes, path, handlersArr);
     return this;
   },
   /**
@@ -42,7 +46,9 @@ module.exports = route = {
    * @returns {Object}
    */
   put: function (path, ...handlers) {
-    handlerAssigner("PUT", this._allRoutes, path, handlers);
+    // simplify the input handlers in simple Array
+    const handlersArr = handlersSimplifierInArr(handlers);
+    handlerAssigner("PUT", this._allRoutes, path, handlersArr);
     return this;
   },
   /**
@@ -52,7 +58,9 @@ module.exports = route = {
    * @returns {Object}
    */
   patch: function (path, ...handlers) {
-    handlerAssigner("PATCH", this._allRoutes, path, handlers);
+    // simplify the input handlers in simple Array
+    const handlersArr = handlersSimplifierInArr(handlers);
+    handlerAssigner("PATCH", this._allRoutes, path, handlersArr);
     return this;
   },
   /**
@@ -62,7 +70,9 @@ module.exports = route = {
    * @returns {Object}
    */
   delete: function (path, ...handlers) {
-    handlerAssigner("DELETE", this._allRoutes, path, handlers);
+    // simplify the input handlers in simple Array
+    const handlersArr = handlersSimplifierInArr(handlers);
+    handlerAssigner("DELETE", this._allRoutes, path, handlersArr);
     return this;
   },
   /**
@@ -74,12 +84,14 @@ module.exports = route = {
    * @returns {Object}
    */
   all: function (path, ...handlers) {
+    // simplify the input handlers in simple Array
+    const handlersArr = handlersSimplifierInArr(handlers);
     // puting the handler to all type of method handlers
-    handlerAssigner("GET", this._allRoutes, path, handlers);
-    handlerAssigner("POST", this._allRoutes, path, handlers);
-    handlerAssigner("PUT", this._allRoutes, path, handlers);
-    handlerAssigner("PATCH", this._allRoutes, path, handlers);
-    handlerAssigner("DELETE", this._allRoutes, path, handlers);
+    handlerAssigner("GET", this._allRoutes, path, handlersArr);
+    handlerAssigner("POST", this._allRoutes, path, handlersArr);
+    handlerAssigner("PUT", this._allRoutes, path, handlersArr);
+    handlerAssigner("PATCH", this._allRoutes, path, handlersArr);
+    handlerAssigner("DELETE", this._allRoutes, path, handlersArr);
     return this;
   },
   /**

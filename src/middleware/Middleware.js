@@ -3,13 +3,16 @@ const {
   checkPureObject,
   isEmptyObject,
 } = require("../globalUtils/globalUtils");
+const { handlerAssigner, handlersSimplifierInArr } = require("../globalService/globalService");
 const route = require("../route/Route");
 const middleware = {
   _allGlobalMiddlewares: [],
 };
 
 middleware.use = function (path, ...handlers) {
-  handlers.forEach(handler => {
+  // simplify the input handlers in simple Array
+  const handlersArr = handlersSimplifierInArr(handlers);
+  handlersArr.forEach(handler => {
     if (
       typeof path === "string" &&
       !isFunction(handler) &&

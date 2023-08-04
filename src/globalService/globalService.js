@@ -1,5 +1,29 @@
 const { isFunction } = require("../globalUtils/globalUtils");
 
+
+/**
+ * Takes array of array of simple array and returns simple array of handlers
+ * Example:
+ * input : [[ [Function: cb0], [Function: cb1], [Function: cb2] ],[[Function (anonymous)]]
+ * output:[[Function: cb0], [Function: cb1], [Function: cb2], [Function (anonymous)]]
+ * @param {Array} handlers 
+ * @returns {Array}
+ */
+
+const handlersSimplifierInArr = function (handlers) {
+  const resultArr = [];
+  const arraySimplyFier = function (arrayOfArr) {
+    arrayOfArr.forEach((handler) => {
+      if (isFunction(handler)) resultArr.push(handler);
+      else if (Array.isArray(handler)) {
+        arraySimplyFier(handler);
+      }
+    })
+  }
+  arraySimplyFier(handlers);
+  return resultArr
+}
+
 /**
  * 
  * @param {String} methodType 
@@ -39,6 +63,7 @@ const defaultHandler = function (req, res) {
 
 
 module.exports = {
+  handlersSimplifierInArr,
   handlerAssigner,
-  defaultHandler
+  defaultHandler,
 }

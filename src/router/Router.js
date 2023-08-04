@@ -1,4 +1,4 @@
-const { handlerAssigner } = require("../globalService/globalService");
+const { handlerAssigner, handlersSimplifierInArr } = require("../globalService/globalService");
 const { isFunction } = require("../globalUtils/globalUtils");
 const { routeMethodPrototype } = require('../route/service')
 
@@ -18,7 +18,9 @@ module.exports = Router = function () {
      * @returns {void,Object}
      */
     get: function (path, ...handlers) {
-      handlerAssigner("GET", this.routerHandlers, path, handlers);
+      // simplify the input handlers in simple Array
+      const handlersArr = handlersSimplifierInArr(handlers);
+      handlerAssigner("GET", this.routerHandlers, path, handlersArr);
       return this;
     },
     /**
@@ -28,7 +30,9 @@ module.exports = Router = function () {
      * @returns {void,Object}
      */
     post: function (path, ...handlers) {
-      handlerAssigner("POST", this.routerHandlers, path, handlers);
+      // simplify the input handlers in simple Array
+      const handlersArr = handlersSimplifierInArr(handlers);
+      handlerAssigner("POST", this.routerHandlers, path, handlersArr);
       return this;
     },
     /**
@@ -38,7 +42,9 @@ module.exports = Router = function () {
      * @returns {void,Object}
      */
     put: function (path, ...handlers) {
-      handlerAssigner("PUT", this.routerHandlers, path, handlers);
+      // simplify the input handlers in simple Array
+      const handlersArr = handlersSimplifierInArr(handlers);
+      handlerAssigner("PUT", this.routerHandlers, path, handlersArr);
       return this;
     },
     /**
@@ -47,8 +53,10 @@ module.exports = Router = function () {
      * @param {Array} handlers
      * @returns {void,Object}
      */
-    patch: function (path, handlers) {
-      handlerAssigner("PATCH", this.routerHandlers, path, handlers);
+    patch: function (path, ...handlers) {
+      // simplify the input handlers in simple Array
+      const handlersArr = handlersSimplifierInArr(handlers);
+      handlerAssigner("PATCH", this.routerHandlers, path, handlersArr);
       return this;
     },
     /**
@@ -58,7 +66,9 @@ module.exports = Router = function () {
      * @returns {void,Object}
      */
     delete: function (path, ...handlers) {
-      handlerAssigner("DELETE", this.routerHandlers, path, handlers);
+      // simplify the input handlers in simple Array
+      const handlersArr = handlersSimplifierInArr(handlers);
+      handlerAssigner("DELETE", this.routerHandlers, path, handlersArr);
       return this;
     },
     /**
@@ -70,12 +80,14 @@ module.exports = Router = function () {
    * @returns {Object}
    */
     all: function (path, ...handlers) {
+      // simplify the input handlers in simple Array
+      const handlersArr = handlersSimplifierInArr(handlers);
       // puting the handler to all type of method handlers
-      handlerAssigner("GET", this.routerHandlers, path, handlers);
-      handlerAssigner("POST", this.routerHandlers, path, handlers);
-      handlerAssigner("PUT", this.routerHandlers, path, handlers);
-      handlerAssigner("PATCH", this.routerHandlers, path, handlers);
-      handlerAssigner("DELETE", this.routerHandlers, path, handlers);
+      handlerAssigner("GET", this.routerHandlers, path, handlersArr);
+      handlerAssigner("POST", this.routerHandlers, path, handlersArr);
+      handlerAssigner("PUT", this.routerHandlers, path, handlersArr);
+      handlerAssigner("PATCH", this.routerHandlers, path, handlersArr);
+      handlerAssigner("DELETE", this.routerHandlers, path, handlersArr);
       return this;
     },
     /**
@@ -90,10 +102,12 @@ module.exports = Router = function () {
     },
     /**
      * invoked for any requests passed to this router
-     * @param  {...Function} handles 
+     * @param  {Array} handlers 
      */
-    use: function (...handles) {
-      handles.forEach(ele => {
+    use: function (...handlers) {
+      // simplify the input handlers in simple Array
+      const handlersArr = handlersSimplifierInArr(handlers);
+      handlersArr.forEach(ele => {
         if (!isFunction(ele)) {
           throw new Error("please, provide a function as the handler.")
         }
