@@ -1,9 +1,9 @@
-const express = require('../../src/tiny-express')
-const app = express()
-const router = express.Router()
+const tinyExpress = require('../../src/tiny-express')
+const app = tinyExpress()
+const router = tinyExpress.Router()
 const port = 4000
 
-
+console.log(tinyExpress)
 
 router.get('/random.text', (req, res) => {
   res.send('random.text')

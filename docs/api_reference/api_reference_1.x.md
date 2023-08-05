@@ -1,3 +1,7 @@
+---
+title: API Reference 1.x
+---
+
 # API Reference 1.x
 
 <hr>
@@ -14,6 +18,8 @@ var app = tinyExpress();
 ## Methods
 
 ### tinyExpress.json([options])
+
+## Application
 
 ### app.all(path, callback [, callback ...])
 

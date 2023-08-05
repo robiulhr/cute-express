@@ -1,14 +1,12 @@
 // import  tinyExpress
 const tinyExpress = require("../../../../src/tiny-express");
 const app = tinyExpress();
-// import custom bodyPareser
-const bodyParser = require("../../../../src/build-in middlewares/bodyParser");
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded());
+app.use(tinyExpress.urlencoded());
 
 // parse application/json
-app.use(bodyParser.json());
+app.use(tinyExpress.json());
 
 app.use(bodyParser.row({ type: 'text/html' }))
 app.use((req, res, next) => {

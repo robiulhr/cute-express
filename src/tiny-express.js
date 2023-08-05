@@ -2,6 +2,7 @@ const app = require("./app/app");
 const route = require("./route/Route");
 const middleware = require("./middleware/Middleware");
 const Router = require("./router/Router");
+const bodyParser = require('./build-in middlewares/bodyParser');
 
 const tinyExpress = function () {
   const AllMethodsAndobjs = { ...app, ...route, ...middleware };
@@ -14,5 +15,9 @@ const tinyExpress = function () {
 
 // adding Router to the tinyExpress object
 tinyExpress["Router"] = Router;
+// adding body parser methods to the tinyExpress object
+for (let elements in bodyParser) {
+  tinyExpress[elements] = bodyParser[elements]
+}
 
 module.exports = tinyExpress;
