@@ -14,10 +14,9 @@ const handlersSimplifierInArr = function (handlers) {
   const resultArr = [];
   const arraySimplyFier = function (arrayOfArr) {
     arrayOfArr.forEach((handler) => {
-      if (isFunction(handler)) resultArr.push(handler);
-      else if (Array.isArray(handler)) {
+      if (Array.isArray(handler)) {
         arraySimplyFier(handler);
-      }
+      } else resultArr.push(handler);
     })
   }
   arraySimplyFier(handlers);

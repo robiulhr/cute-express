@@ -3,7 +3,7 @@ const {
   checkPureObject,
   isEmptyObject,
 } = require("../globalUtils/globalUtils");
-const { handlerAssigner, handlersSimplifierInArr } = require("../globalService/globalService");
+const { handlersSimplifierInArr } = require("../globalService/globalService");
 const route = require("../route/Route");
 const middleware = {
   _allGlobalMiddlewares: [],
@@ -37,12 +37,13 @@ middleware.use = function (path, ...handlers) {
             /\/\//g,
             "/"
           );
-          let finalRouteHandlers = route._allRoutes[routerMethod][combinedRoutePath];
+          // spliting the path 
+          const splitedPath = combinedRoutePath.split('/').filter(ele => ele !== "")
           // if this path doesn't already exist
-          if (!finalRouteHandlers) finalRouteHandlers = []
+          if (!route._allRoutes[routerMethod][combinedRoutePath]) route._allRoutes[routerMethod][combinedRoutePath] = { splitedPath, "handlers": [] }
           // putting the handlers for this route
-          singleRouteHandler.forEach(ele => {
-            finalRouteHandlers.push(ele);
+          singleRouteHandler["handlers"].forEach(ele => {
+            route._allRoutes[routerMethod][combinedRoutePath]["handlers"].push(ele);
           })
         }
       }

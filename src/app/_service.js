@@ -66,7 +66,7 @@ const passDefaultHandler = function (AllHandlersForTheMethod, defaultHandler) {
  * @returns {Array}
  */
 const selectRouteHandler = function (routes, methodName, reqUrl, reqObject) {
-  let routeHandler;
+  let routeHandlers = []
   // all Handlers Object for the method
   const AllHandlersForTheMethod = routes._allRoutes[methodName];
   // get the registeredUrl path for the method type
@@ -77,25 +77,25 @@ const selectRouteHandler = function (routes, methodName, reqUrl, reqObject) {
         // defining splitedpath array of the url path 
         const registereSpliteddUrlArr = AllHandlersForTheMethod[registeredUrl][registereSpliteddUrl]
         if (reqUrl === '/') {
-          if (AllHandlersForTheMethod[reqUrl]) routeHandler = AllHandlersForTheMethod[reqUrl];
-          else routeHandler = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
-          return routeHandler
+          if (AllHandlersForTheMethod[reqUrl]) routeHandlers = AllHandlersForTheMethod[reqUrl];
+          else routeHandlers = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
+          return routeHandlers
         }
         else if (!matchRouteHandlerReqUrl(registereSpliteddUrlArr, reqUrl)) {
-          routeHandler = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
+          routeHandlers = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
         } else {
-          routeHandler = AllHandlersForTheMethod[registeredUrl].handlers;
+          routeHandlers = AllHandlersForTheMethod[registeredUrl].handlers;
           if (registeredUrl.includes(":")) {
             reqParamsHandler(registereSpliteddUrlArr, reqUrl, reqObject)
           }
-          return routeHandler
+          return routeHandlers
         }
       }
 
     }
 
   }
-  return routeHandler;
+  return routeHandlers;
 };
 
 /**
@@ -111,7 +111,7 @@ const callRouteHandlerAndMiddlewares = function (
 ) {
   let ind = 0;
   function next() {
-    if (ind < routeHandlerAndMiddlewares.length - 1) {
+    if (ind < routeHandlerAndMiddlewares.length-1) {
       const singleMiddleware = routeHandlerAndMiddlewares[ind];
       ind++;
       // calling middleware for this route
@@ -119,7 +119,7 @@ const callRouteHandlerAndMiddlewares = function (
     } else {
       const routeHandler = routeHandlerAndMiddlewares[ind]
       // calling the route handler
-      routeHandler(reqObject, resObject);
+      if(routeHandler) routeHandler(reqObject, resObject);
     }
   }
   next();
