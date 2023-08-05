@@ -54,5 +54,18 @@ app.listen = function () {
 };
 ```
 
-## Router
 
+## Response
+
+### res.json([body])
+
+### res.redirect([status,] path)
+
+### res.send([body])
+
+### res.sendStatus(statusCode)
+
+### res.end([data] [, encoding])
+
+
+## Router

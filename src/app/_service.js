@@ -7,14 +7,12 @@ const { defaultHandler } = require("../globalService/globalService");
  * @param {Object} reqUrl 
  * @param {Object} reqObject 
  */
-const reqParamsHandler = function (registeredUrl, reqUrl, reqObject) {
-  const registeredUrlParts = registeredUrl.split('/')
-  const reqUrlParts = reqUrl.split('/')
+const reqParamsHandler = function (registereSpliteddUrlArr, reqUrl, reqObject) {
+  const reqUrlParts = reqUrl.split('/').filter(ele => ele !== "")
   const params = {};
-
-  for (let i = 0; i < registeredUrlParts.length; i++) {
-    if (registeredUrlParts[i].startsWith(':')) {
-      const paramName = registeredUrlParts[i].slice(1);
+  for (let i = 0; i < registereSpliteddUrlArr.length; i++) {
+    if (registereSpliteddUrlArr[i].startsWith(':')) {
+      const paramName = registereSpliteddUrlArr[i].slice(1);
       params[paramName] = reqUrlParts[i];
     }
   }
@@ -27,14 +25,16 @@ const reqParamsHandler = function (registeredUrl, reqUrl, reqObject) {
  * @param {String} reqUrl 
  * @returns {Function,Array}
  */
-const matchRouteHandlerReqUrl = function (registeredUrl, reqUrl) {
-  const registeredUrlParts = registeredUrl.split('/')
-  const reqUrlParts = reqUrl.split('/')
-  if (registeredUrlParts.length !== reqUrlParts.length) return false;
+const matchRouteHandlerReqUrl = function (registereSpliteddUrlArr, reqUrl) {
+  const reqUrlParts = reqUrl.split('/').filter(ele => ele !== "");
+  if (registereSpliteddUrlArr.length !== reqUrlParts.length) return false;
   let result = true
-  registeredUrlParts.forEach((ele, ind) => {
-    if (!ele.startsWith(':')) {
-      if (ele !== reqUrlParts[ind]) {
+  registereSpliteddUrlArr.forEach((registeredUrlPart, ind) => {
+    if (!registeredUrlPart.startsWith(':')) {
+      // creating regex for the registered path adding ^ and $ start-of-line and end-of-line respectively
+      const modifiedUrlPart = (registeredUrlPart.startsWith("^") ? "" : "^") + registeredUrlPart + (registeredUrlPart.endsWith("$") ? "" : "$")
+      const urlRegx = new RegExp(modifiedUrlPart)
+      if (!urlRegx.test(reqUrlParts[ind])) {
         result = false
         return result
       }
@@ -67,22 +67,33 @@ const passDefaultHandler = function (AllHandlersForTheMethod, defaultHandler) {
  */
 const selectRouteHandler = function (routes, methodName, reqUrl, reqObject) {
   let routeHandler;
+  // all Handlers Object for the method
   const AllHandlersForTheMethod = routes._allRoutes[methodName];
+  // get the registeredUrl path for the method type
   for (let registeredUrl in AllHandlersForTheMethod) {
-    if (reqUrl === '/') {
-      if (AllHandlersForTheMethod[reqUrl]) routeHandler = AllHandlersForTheMethod[reqUrl];
-      else routeHandler = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
-      return routeHandler
-    }
-    else if (!matchRouteHandlerReqUrl(registeredUrl, reqUrl)) {
-      routeHandler = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
-    } else {
-      routeHandler = AllHandlersForTheMethod[registeredUrl];
-      if (registeredUrl.includes(":")) {
-        reqParamsHandler(registeredUrl, reqUrl, reqObject)
+    // splitedpath array of the url path 
+    for (let registereSpliteddUrl in AllHandlersForTheMethod[registeredUrl]) {
+      if (registereSpliteddUrl = "splitedPath") {
+        // defining splitedpath array of the url path 
+        const registereSpliteddUrlArr = AllHandlersForTheMethod[registeredUrl][registereSpliteddUrl]
+        if (reqUrl === '/') {
+          if (AllHandlersForTheMethod[reqUrl]) routeHandler = AllHandlersForTheMethod[reqUrl];
+          else routeHandler = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
+          return routeHandler
+        }
+        else if (!matchRouteHandlerReqUrl(registereSpliteddUrlArr, reqUrl)) {
+          routeHandler = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
+        } else {
+          routeHandler = AllHandlersForTheMethod[registeredUrl].handlers;
+          if (registeredUrl.includes(":")) {
+            reqParamsHandler(registereSpliteddUrlArr, reqUrl, reqObject)
+          }
+          return routeHandler
+        }
       }
-      return routeHandler
+
     }
+
   }
   return routeHandler;
 };

@@ -55,7 +55,115 @@ app.all("/secret", (req, res, next) => {
 
 ## Route paths
 
+Route paths, in combination with a request method, define the endpoints at which requests can be made. Route paths can be strings, string patterns, or regular expressions.
+
+The characters ?, +, \*, and () are subsets of their regular expression counterparts. The hyphen (-) and the dot (.) are interpreted literally by string-based paths.
+
+If you need to use the dollar character ($) in a path string, enclose it escaped within ([ and ]). For example, the path string for requests at “/data/$book”, would be “/data/([\$])book”.
+
+:::warning
+Query strings are not part of the route path.
+:::
+
+Here are some examples of route paths based on strings.
+
+This route path will match requests to the root route, /.
+
+```js
+app.get("/", (req, res) => {
+  res.send("root");
+});
+```
+
+This route path will match requests to /about.
+
+```js
+app.get("/about", (req, res) => {
+  res.send("about");
+});
+```
+
+This route path will match requests to /random.text.
+
+```js
+app.get("/random.text", (req, res) => {
+  res.send("random.text");
+});
+```
+
+Here are some examples of route paths based on string patterns.
+
+This route path will match acd and abcd.
+
+```js
+app.get("/ab?cd", (req, res) => {
+  res.send("ab?cd");
+});
+```
+
+This route path will match abcd, abbcd, abbbcd, and so on.
+
+```js
+app.get("/ab+cd", (req, res) => {
+  res.send("ab+cd");
+});
+```
+
+This route path will match acd, abbcd, abbbcd, and so on.
+
+```js
+app.get("/ab*cd", (req, res) => {
+  res.send("ab*cd");
+});
+```
+
+This route path will match /abe and /abcde.
+
+```js
+app.get("/ab(cd)?e", (req, res) => {
+  res.send("ab(cd)?e");
+});
+```
+
+Examples of route paths based on regular expressions:
+
+This route path will match anything with an “a” in it.
+
+```js
+app.get(/a/, (req, res) => {
+  res.send("/a/");
+});
+```
+
+This route path will match butterfly and dragonfly, but not butterflyman, dragonflyman, and so on.
+
+```js
+app.get(/.*fly$/, (req, res) => {
+  res.send("/.*fly$/");
+});
+```
+
 ### Route parameters
+
+Route parameters are named URL segments that are used to capture the values specified at their position in the URL. The captured values are populated in the req.params object, with the name of the route parameter specified in the path as their respective keys.
+
+```md
+Route path: /users/:userId/books/:bookId
+Request URL: http://localhost:3000/users/34/books/8989
+req.params: { "userId": "34", "bookId": "8989" }
+```
+
+To define routes with route parameters, simply specify the route parameters in the path of the route as shown below.
+
+```js
+app.get("/users/:userId/books/:bookId", (req, res) => {
+  res.send(req.params);
+});
+```
+
+:::info
+The name of route parameters must be made up of “word characters” ([A-Za-z0-9_]).
+:::
 
 ## Route handlers
 
@@ -66,65 +174,83 @@ Route handlers can be in the form of a function, an array of functions, or combi
 A single callback function can handle a route. For example:
 
 ```js
-app.get('/example/a', (req, res) => {
-  res.send('Hello from A!')
-})
+app.get("/example/a", (req, res) => {
+  res.send("Hello from A!");
+});
 ```
 
 More than one callback function can handle a route (make sure you specify the next object). For example:
 
 ```js
-app.get('/example/b', (req, res, next) => {
-  console.log('the response will be sent by the next function ...')
-  next()
-}, (req, res) => {
-  res.send('Hello from B!')
-})
+app.get(
+  "/example/b",
+  (req, res, next) => {
+    console.log("the response will be sent by the next function ...");
+    next();
+  },
+  (req, res) => {
+    res.send("Hello from B!");
+  }
+);
 ```
 
 An array of callback functions can handle a route. For example:
 
 ```js
 const cb0 = function (req, res, next) {
-  console.log('CB0')
-  next()
-}
+  console.log("CB0");
+  next();
+};
 
 const cb1 = function (req, res, next) {
-  console.log('CB1')
-  next()
-}
+  console.log("CB1");
+  next();
+};
 
 const cb2 = function (req, res) {
-  res.send('Hello from C!')
-}
+  res.send("Hello from C!");
+};
 
-app.get('/example/c', [cb0, cb1, cb2])
+app.get("/example/c", [cb0, cb1, cb2]);
 ```
 
 A combination of independent functions and arrays of functions can handle a route. For example:
 
 ```js
 const cb0 = function (req, res, next) {
-  console.log('CB0')
-  next()
-}
+  console.log("CB0");
+  next();
+};
 
 const cb1 = function (req, res, next) {
-  console.log('CB1')
-  next()
-}
+  console.log("CB1");
+  next();
+};
 
-app.get('/example/d', [cb0, cb1], (req, res, next) => {
-  console.log('the response will be sent by the next function ...')
-  next()
-}, (req, res) => {
-  res.send('Hello from D!')
-})
+app.get(
+  "/example/d",
+  [cb0, cb1],
+  (req, res, next) => {
+    console.log("the response will be sent by the next function ...");
+    next();
+  },
+  (req, res) => {
+    res.send("Hello from D!");
+  }
+);
 ```
 
 ## Response methods
 
+The methods on the response object (res) in the following table can send a response to the client, and terminate the request-response cycle. If none of these methods are called from a route handler, the client request will be left hanging.
+
+| Method                                                                                                   | Description                                                                           |
+| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| [res.end()](http://localhost:5173/api_reference/api_reference_1.x.html#res-end-data-encoding)            | End the response process.                                                             |
+| [res.json()](http://localhost:5173/api_reference/api_reference_1.x.html#res-json-body)                   | Send a JSON response.                                                                 |
+| [res.redirect()](http://localhost:5173/api_reference/api_reference_1.x.html#res-redirect-status-path)    | Redirect a request.                                                                   |
+| [res.send()](http://localhost:5173/api_reference/api_reference_1.x.html#res-send-body)                   | Send a response of various types.                                                     |
+| [res.sendStatus()](http://localhost:5173/api_reference/api_reference_1.x.html#res-sendstatus-statuscode) | Set the response status code and send its string representation as the response body. |
 
 ## app.route()
 
@@ -133,19 +259,18 @@ You can create chainable route handlers for a route path by using app.route(). B
 Here is an example of chained route handlers that are defined by using app.route().
 
 ```js
-app.route('/book')
+app
+  .route("/book")
   .get((req, res) => {
-    res.send('Get a random book')
+    res.send("Get a random book");
   })
   .post((req, res) => {
-    res.send('Add a book')
+    res.send("Add a book");
   })
   .put((req, res) => {
-    res.send('Update the book')
-  })
+    res.send("Update the book");
+  });
 ```
-
-
 
 ## tinyExpress.Router
 
@@ -155,37 +280,35 @@ The following example creates a router as a module, loads a middleware function 
 
 Create a router file named birds.js in the app directory, with the following content:
 
-
 ```js
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
 // middleware that is specific to this router
 router.use((req, res, next) => {
-  console.log('Time: ', Date.now())
-  next()
-})
+  console.log("Time: ", Date.now());
+  next();
+});
 // define the home page route
-router.get('/', (req, res) => {
-  res.send('Birds home page')
-})
+router.get("/", (req, res) => {
+  res.send("Birds home page");
+});
 // define the about route
-router.get('/about', (req, res) => {
-  res.send('About birds')
-})
+router.get("/about", (req, res) => {
+  res.send("About birds");
+});
 
-module.exports = router
+module.exports = router;
 ```
 
 Then, load the router module in the app:
 
 ```js
-const birds = require('./birds')
+const birds = require("./birds");
 
 // ...
 
-app.use('/birds', birds)
+app.use("/birds", birds);
 ```
 
 The app will now be able to handle requests to /birds and /birds/about, as well as call the timeLog middleware function that is specific to the route.
-

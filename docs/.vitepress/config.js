@@ -18,7 +18,7 @@ export default {
                     { text: "Routing", link: "/guide/routing" },
                     { text: "Writing Middleware", link: "/guide/writing_middleware" },
                     { text: "Using Middleware", link: "/guide/using_middleware" },
-                    { text: "Overriding the Express API", link: "/guide/overriding_the_express_api" },
+                    { text: "Overriding the Tiny Express API", link: "/guide/overriding_the_express_api" },
                     { text: "Error Handling", link: "/guide/error_handling" },
                     { text: "Database Integration", link: "/guide/database_integration" },
                     { text: "Examples", link: "/guide/examples" },
@@ -58,7 +58,7 @@ export default {
                         { text: "Routing", link: "/guide/routing" },
                         { text: "Writing Middleware", link: "/guide/writing_middleware" },
                         { text: "Using Middleware", link: "/guide/using_middleware" },
-                        { text: "Overriding the Express API", link: "/guide/overriding_the_express_api" },
+                        { text: "Overriding the Tiny Express API", link: "/guide/overriding_the_express_api" },
                         { text: "Error Handling", link: "/guide/error_handling" },
                         { text: "Database Integration", link: "/guide/database_integration" },
                         { text: "Examples", link: "/guide/examples" },
@@ -70,7 +70,7 @@ export default {
                     text: "API Reference 1.x",
                     collapsible: true,
                     items: [
-                        { text: "express()", link: "/api_reference/api_reference_1.x.html#express" },
+                        { text: "tinyExpress()", link: "/api_reference/api_reference_1.x.html#tinyExpress" },
                         { text: "Methods", link: "/api_reference/api_reference_1.x.html#methods" },
                     ],
                 }

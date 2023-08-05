@@ -33,10 +33,8 @@ const handlersSimplifierInArr = function (handlers) {
  * @returns {void}
  */
 const handlerAssigner = function (methodType, allRouteObj, path, handlers) {
-  if (typeof path !== "string") {
-    console.log("please, provide a valid path");
-    return;
-  }
+  let strPath = path
+  if (typeof strPath !== "string") strPath = String(strPath);
   if (handlers.length < 1) {
     console.log("please, provide a handler.");
     return;
@@ -45,13 +43,17 @@ const handlerAssigner = function (methodType, allRouteObj, path, handlers) {
     console.log("please, provide a valid function as handler");
     return;
   }
+  const splitedPath = strPath.split('/').filter(ele => ele !== "")
   // if handler for this path already exist
-  if (allRouteObj[methodType][path]) {
+  if (allRouteObj[methodType][strPath]) {
     handlers.forEach(ele => {
-      allRouteObj[methodType][path].push(ele);
+      allRouteObj[methodType][strPath].handlers.push(ele);
     })
   } else {
-    allRouteObj[methodType][path] = handlers;
+    allRouteObj[methodType][strPath] = {
+      splitedPath,
+      handlers
+    }
   }
 };
 
