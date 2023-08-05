@@ -25,6 +25,21 @@ const handlersSimplifierInArr = function (handlers) {
 
 /**
  * 
+ * @param {Array} inputs 
+ * @returns {Object}
+ */
+const routeMethodInputsHandler = function (inputs) {
+  let path, handlers = [];
+  inputs.forEach((ele, ind) => {
+    // if path is not provided than the default path will be "/" root path
+    if (ind === 0) typeof ele === "string" ? path = ele : path = "/" && handlers.push(ele)
+    else handlers.push(ele)
+  })
+  return {path,handlers}
+}
+
+/**
+ * 
  * @param {String} methodType 
  * @param {Object} allRouteObj 
  * @param {String} path 
@@ -42,7 +57,11 @@ const handlerAssigner = function (methodType, allRouteObj, path, handlers) {
     console.log("please, provide a valid function as handler");
     return;
   }
-  const splitedPath = strPath.split('/').filter(ele => ele !== "")
+  let splitedPath
+  if (path === "/") {
+    splitedPath = ['/']
+  }
+  splitedPath = strPath.split('/').filter(ele => ele !== "")
   // if handler for this path already exist
   if (allRouteObj[methodType][strPath]) {
     handlers.forEach(ele => {
@@ -65,6 +84,7 @@ const defaultHandler = function (req, res) {
 
 module.exports = {
   handlersSimplifierInArr,
+  routeMethodInputsHandler,
   handlerAssigner,
   defaultHandler,
 }

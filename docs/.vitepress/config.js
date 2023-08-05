@@ -70,8 +70,29 @@ export default {
                     text: "API Reference 1.x",
                     collapsible: true,
                     items: [
-                        { text: "tinyExpress()", link: "/api_reference/api_reference_1.x.html#tinyExpress" },
-                        { text: "Methods", link: "/api_reference/api_reference_1.x.html#methods" },
+                        {
+                            text: "tinyExpress()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress", items: [
+                                { text: "Methods" },
+                                { text: "tinyExpress.json()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-json" },
+                                { text: "tinyExpress.raw()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-raw" },
+                                { text: "tinyExpress.Router()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-router-options" },
+                                { text: "tinyExpress.urlencoded()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-urlencoded" },
+                            ]
+                        },
+                        {
+                            text: "Application", collapsible: true, link: "/api_reference/api_reference_1.x.html#application", items: [
+                                { text: "Methods" },
+                                { text: "app.all()", collapsible: true, link: "/api_reference/api_reference_1.x.html#app-all-path-callback-callback" },
+                                { text: "app.delete()", collapsible: true, link: "/api_reference/api_reference_1.x.html#app-delete-path-callback-callback" },
+                                { text: "app.get()", collapsible: true, link: "/api_reference/api_reference_1.x.html#app-get-path-callback-callback" },
+                                { text: "app.listen()", collapsible: true, link: "/api_reference/api_reference_1.x.html#app-listen-port-host-callback" },
+                                { text: "app.METHOD()", collapsible: true, link: "/api_reference/api_reference_1.x.html#app-method-path-callback-callback" },
+                                { text: "app.post()", collapsible: true, link: "/api_reference/api_reference_1.x.html#app-post-path-callback-callback" },
+                                { text: "app.put()", collapsible: true, link: "/api_reference/api_reference_1.x.html#app-put-path-callback-callback" },
+                                { text: "app.route()", collapsible: true, link: "/api_reference/api_reference_1.x.html#app-route-path" },
+                                { text: "app.use()", collapsible: true, link: "/api_reference/api_reference_1.x.html#app-use-path-callback-callback" },
+                            ]
+                        },
                     ],
                 }
             ]

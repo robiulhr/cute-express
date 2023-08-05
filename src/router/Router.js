@@ -1,4 +1,4 @@
-const { handlerAssigner, handlersSimplifierInArr } = require("../globalService/globalService");
+const { routeMethodInputsHandler, handlerAssigner, handlersSimplifierInArr } = require("../globalService/globalService");
 const { isFunction } = require("../globalUtils/globalUtils");
 const { routeMethodPrototype } = require('../route/service')
 
@@ -13,11 +13,11 @@ module.exports = Router = function () {
     },
     /**
      * Handles Get request for router
-     * @param {String} path
-     * @param {Array} handlers
-     * @returns {void,Object}
+   * @param {Array} inputs
+   * @returns {Object}
      */
-    get: function (path, ...handlers) {
+    get: function (...inputs) {
+      const { path, handlers } = routeMethodInputsHandler(inputs)
       // simplify the input handlers in simple Array
       const handlersArr = handlersSimplifierInArr(handlers);
       handlerAssigner("GET", this.routerHandlers, path, handlersArr);
@@ -25,11 +25,11 @@ module.exports = Router = function () {
     },
     /**
      * Handles Post request for router
-     * @param {String} path
-     * @param {Array} handlers
-     * @returns {void,Object}
+   * @param {Array} inputs
+   * @returns {Object}
      */
-    post: function (path, ...handlers) {
+    post: function (...inputs) {
+      const { path, handlers } = routeMethodInputsHandler(inputs)
       // simplify the input handlers in simple Array
       const handlersArr = handlersSimplifierInArr(handlers);
       handlerAssigner("POST", this.routerHandlers, path, handlersArr);
@@ -37,11 +37,11 @@ module.exports = Router = function () {
     },
     /**
      * Handles Put request for router
-     * @param {String} path
-     * @param {Array} handlers
-     * @returns {void,Object}
+   * @param {Array} inputs
+   * @returns {Object}
      */
-    put: function (path, ...handlers) {
+    put: function (...inputs) {
+      const { path, handlers } = routeMethodInputsHandler(inputs)
       // simplify the input handlers in simple Array
       const handlersArr = handlersSimplifierInArr(handlers);
       handlerAssigner("PUT", this.routerHandlers, path, handlersArr);
@@ -49,11 +49,11 @@ module.exports = Router = function () {
     },
     /**
      * Handles Patch request for router
-     * @param {String} path
-     * @param {Array} handlers
-     * @returns {void,Object}
+   * @param {Array} inputs
+   * @returns {Object}
      */
-    patch: function (path, ...handlers) {
+    patch: function (...inputs) {
+      const { path, handlers } = routeMethodInputsHandler(inputs)
       // simplify the input handlers in simple Array
       const handlersArr = handlersSimplifierInArr(handlers);
       handlerAssigner("PATCH", this.routerHandlers, path, handlersArr);
@@ -61,11 +61,11 @@ module.exports = Router = function () {
     },
     /**
      * Handles Delete request for router
-     * @param {String} path
-     * @param {Array} handlers
-     * @returns {void,Object}
+   * @param {Array} inputs
+   * @returns {Object}
      */
-    delete: function (path, ...handlers) {
+    delete: function (...inputs) {
+      const { path, handlers } = routeMethodInputsHandler(inputs)
       // simplify the input handlers in simple Array
       const handlersArr = handlersSimplifierInArr(handlers);
       handlerAssigner("DELETE", this.routerHandlers, path, handlersArr);
@@ -75,11 +75,11 @@ module.exports = Router = function () {
    * router.all(), used to load middleware functions at a path for all HTTP request methods. 
    * For example, the following handler is executed for requests to the route “/secret” 
    * whether using GET, POST, PUT, DELETE, or any other HTTP request method supported in the app.METHOD.
-   * @param {String} path 
-   * @param  {...Function} handlers 
+   * @param {Array} inputs
    * @returns {Object}
    */
-    all: function (path, ...handlers) {
+    all: function (...inputs) {
+      const { path, handlers } = routeMethodInputsHandler(inputs)
       // simplify the input handlers in simple Array
       const handlersArr = handlersSimplifierInArr(handlers);
       // puting the handler to all type of method handlers
@@ -116,7 +116,7 @@ module.exports = Router = function () {
           const singleRouteHandlerObj = this.routerHandlers[singleRouterHandler]
           for (let handlerPath in singleRouteHandlerObj) {
             // all handlers for a specific method type and path
-            const handlersForPath = singleRouteHandlerObj[handlerPath]
+            let handlersForPath = singleRouteHandlerObj[handlerPath].handlers
             // if this path doesn't exists
             if (!handlersForPath) handlersForPath = []
             // putting all route level middlewares for all route paths

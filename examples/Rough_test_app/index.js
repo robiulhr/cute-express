@@ -3,22 +3,15 @@ const app = tinyExpress()
 const router = tinyExpress.Router()
 const port = 4000
 
-console.log(tinyExpress)
 
-router.get('/random.text', (req, res) => {
-  res.send('random.text')
+app.get("/",(req, res,next) => {
+  console.log("hello world")
+  //  next(new Error('BROKEN')) // Express will catch this on its own.
+},(req, res,next) => {
+  console.log("hello world")
+  //  next(new Error('BROKEN')) // Express will catch this on its own.
 })
 
-router.get('/da?ta', (req, res, next) => {
-  console.log("/data/([\$])book")
-  next()
-})
-app.get('/da*ta', (req, res) => {
-  console.log("/data/([\$])book")
-  res.send(req.url)
-})
-
-app.use("/", router)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

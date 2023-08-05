@@ -77,7 +77,7 @@ const selectRouteHandler = function (routes, methodName, reqUrl, reqObject) {
         // defining splitedpath array of the url path 
         const registereSpliteddUrlArr = AllHandlersForTheMethod[registeredUrl][registereSpliteddUrl]
         if (reqUrl === '/') {
-          if (AllHandlersForTheMethod[reqUrl]) routeHandlers = AllHandlersForTheMethod[reqUrl];
+          if (AllHandlersForTheMethod[reqUrl]) routeHandlers = AllHandlersForTheMethod[reqUrl].handlers;
           else routeHandlers = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
           return routeHandlers
         }
