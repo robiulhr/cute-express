@@ -1,2 +1,7 @@
 examples/node_modules
 node_modules
+
+# vuepress build output
+.vuepress/dist
+.vitepress/dist 
+.vitepress/cache
