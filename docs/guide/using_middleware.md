@@ -8,7 +8,7 @@ title: Using middleware
 
 Tiny Express is a routing and middleware web framework that has minimal functionality of its own: An Tine Express application is essentially a series of middleware function calls.
 
-Middleware functions are functions that have access to the [request object (req)](http://localhost:5173/api_reference/api_reference_1.x.html#request), the [response object (res)](http://localhost:5173/api_reference/api_reference_1.x.html#response), and the next middleware function in the application’s request-response cycle. The next middleware function is commonly denoted by a variable named next.
+Middleware functions are functions that have access to the [request object (req)](/api_reference/api_reference_1.x.html#request), the [response object (res)](/api_reference/api_reference_1.x.html#response), and the next middleware function in the application’s request-response cycle. The next middleware function is commonly denoted by a variable named next.
 
 Middleware functions can perform the following tasks:
 
@@ -24,21 +24,21 @@ If the current middleware function does not end the request-response cycle, it m
 
 An Tine Express application can use the following types of middleware:
 
-- [Application-level middleware](http://localhost:5173/guide/using_middleware.html#application-level-middleware)
+- [Application-level middleware](/guide/using_middleware.html#application-level-middleware)
 
-- [Router-level middleware](http://localhost:5173/guide/using_middleware.html#router-level-middleware)
+- [Router-level middleware](/guide/using_middleware.html#router-level-middleware)
 
-- [Error-handling middleware](http://localhost:5173/guide/using_middleware.html#error-handling-middleware)
+- [Error-handling middleware](/guide/using_middleware.html#error-handling-middleware)
 
-- [Built-in middleware](http://localhost:5173/guide/using_middleware.html#built-in-middleware)
+- [Built-in middleware](/guide/using_middleware.html#built-in-middleware)
 
-- [Third-party middleware](http://localhost:5173/guide/using_middleware.html#third-party-middleware)
+- [Third-party middleware](/guide/using_middleware.html#third-party-middleware)
 
 You can load application-level and router-level middleware with an optional mount path. You can also load a series of middleware functions together, which creates a sub-stack of the middleware system at a mount point.
 
 ## Application-level middleware
 
-Bind application-level middleware to an instance of the [app object](http://localhost:5173/api_reference/api_reference_1.x.html#application) by using the app.use() and app.METHOD() functions, where METHOD is the HTTP method of the request that the middleware function handles (such as GET, PUT, or POST) in lowercase.
+Bind application-level middleware to an instance of the [app object](/api_reference/api_reference_1.x.html#application) by using the app.use() and app.METHOD() functions, where METHOD is the HTTP method of the request that the middleware function handles (such as GET, PUT, or POST) in lowercase.
 
 This example shows a middleware function with no mount path. The function is executed every time the app receives a request.
 

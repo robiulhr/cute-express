@@ -2,6 +2,7 @@
 export default {
     title: "Tiny Express",
     description: "An awesome docs template built by me",
+    base: "/tiny-express/",
     themeConfig: {
         cleanUrls: true,
         nav: [

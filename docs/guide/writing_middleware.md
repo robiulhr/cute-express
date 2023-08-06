@@ -6,7 +6,7 @@ title: Writing middleware for use in Tiny Express apps
 
 ## Overview
 
-Middleware functions are functions that have access to the [request object (req)](http://localhost:5173/api_reference/api_reference_1.x.html#request), the [response object (res)](http://localhost:5173/api_reference/api_reference_1.x.html#response), and the next function in the application’s request-response cycle. The next function is a function in the Tiny Express router which, when invoked, executes the middleware succeeding the current middleware.
+Middleware functions are functions that have access to the [request object (req)](/api_reference/api_reference_1.x.html#request), the [response object (res)](/api_reference/api_reference_1.x.html#response), and the next function in the application’s request-response cycle. The next function is a function in the Tiny Express router which, when invoked, executes the middleware succeeding the current middleware.
 
 Middleware functions can perform the following tasks:
 
@@ -24,7 +24,7 @@ The following figure shows the elements of a middleware function call:
 
 |                                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![tiny express middleware](../img/express-mw.png) | HTTP method for which the <br>middleware function applies. <br><br> Path (route) for which the <br>middleware function applies.<br><br> The middleware function. <br>Callback argument to the <br>middleware function, called "next" by convention.<br><br> HTTP [response](http://localhost:5173/api_reference/api_reference_1.x.html#request) argument to the <br>middleware function, called "res" by convention. <br><br> HTTP [request](http://localhost:5173/api_reference/api_reference_1.x.html#response) argument to the <br>middleware function, called "req" by convention. |
+| ![tiny express middleware](../img/express-mw.png) | HTTP method for which the <br>middleware function applies. <br><br> Path (route) for which the <br>middleware function applies.<br><br> The middleware function. <br>Callback argument to the <br>middleware function, called "next" by convention.<br><br> HTTP [response](/api_reference/api_reference_1.x.html#request) argument to the <br>middleware function, called "res" by convention. <br><br> HTTP [request](/api_reference/api_reference_1.x.html#response) argument to the <br>middleware function, called "req" by convention. |
 
 
 ## Example
