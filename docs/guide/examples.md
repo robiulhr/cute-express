@@ -1,9 +1,9 @@
 ---
-title: Tiny Express examples
+title: Cute Express examples
 ---
 
-# Tiny Express examples
+# Cute Express examples
 
-This page contains list of examples using Tiny Express.
+This page contains list of examples using Cute Express.
 
-- [Poll App](https://github.com/robiulhr/tiny-express/tree/main/examples/poll_app) Poll app with CRUD Operations.
+- [Poll App](https://github.com/robiulhr/cute-express/tree/main/examples/poll_app) Poll app with CRUD Operations.

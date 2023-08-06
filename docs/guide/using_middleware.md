@@ -6,7 +6,7 @@ title: Using middleware
 
 ## Overview
 
-Tiny Express is a routing and middleware web framework that has minimal functionality of its own: An Tine Express application is essentially a series of middleware function calls.
+Cute Express is a routing and middleware web framework that has minimal functionality of its own: An Cute Express application is essentially a series of middleware function calls.
 
 Middleware functions are functions that have access to the [request object (req)](/api_reference/api_reference_1.x.html#request), the [response object (res)](/api_reference/api_reference_1.x.html#response), and the next middleware function in the application’s request-response cycle. The next middleware function is commonly denoted by a variable named next.
 
@@ -22,7 +22,7 @@ Middleware functions can perform the following tasks:
 
 If the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function. Otherwise, the request will be left hanging.
 
-An Tine Express application can use the following types of middleware:
+An Cute Express application can use the following types of middleware:
 
 - [Application-level middleware](/guide/using_middleware.html#application-level-middleware)
 
@@ -43,8 +43,8 @@ Bind application-level middleware to an instance of the [app object](/api_refere
 This example shows a middleware function with no mount path. The function is executed every time the app receives a request.
 
 ```js
-const tinyExpress = require("tiny-express");
-const app = tinyExpress();
+const cuteExpress = require("cute-express");
+const app = cuteExpress();
 
 app.use((req, res, next) => {
   console.log("Time:", Date.now());
@@ -155,10 +155,10 @@ app.get("/user/:id", logStuff, (req, res, next) => {
 
 ## Router-level middleware
 
-Router-level middleware works in the same way as application-level middleware, except it is bound to an instance of tinyExpress.Router().
+Router-level middleware works in the same way as application-level middleware, except it is bound to an instance of cuteExpress.Router().
 
 ```js
-const router = tinyExpress.Router();
+const router = cuteExpress.Router();
 ```
 
 Load router-level middleware by using the router.use() and router.METHOD() functions.
@@ -166,9 +166,9 @@ Load router-level middleware by using the router.use() and router.METHOD() funct
 The following example code replicates the middleware system that is shown above for application-level middleware, by using router-level middleware:
 
 ```js
-const express = require("express");
-const app = express();
-const router = express.Router();
+const cuteExpress = require("cute-express");
+const app = cuteExpress();
+const router = cuteExpress.Router();
 
 // a middleware function with no mount path. This code is executed for every request to the router
 router.use((req, res, next) => {
@@ -219,9 +219,9 @@ To skip the rest of the router’s middleware functions, call next('router') to 
 This example shows a middleware sub-stack that handles GET requests to the /user/:id path.
 
 ```js
-const express = require("express");
-const app = express();
-const router = express.Router();
+const cuteExpress = require("cute-express");
+const app = cuteExpress();
+const router = cuteExpress.Router();
 
 // predicate the router with a check and bail out when needed
 router.use((req, res, next) => {
@@ -243,17 +243,17 @@ app.use("/admin", router, (req, res) => {
 
 ## Built-in middleware
 
-Tiny Express has the following built-in middleware functions:
+Cute Express has the following built-in middleware functions:
 
-- tinyExpress.json parses incoming requests with JSON payloads.
+- cuteExpress.json parses incoming requests with JSON payloads.
 
-- tinyExpress.urlencoded parses incoming requests with URL-encoded payloads.
+- cuteExpress.urlencoded parses incoming requests with URL-encoded payloads.
 
-- tinyExpress.row parses incoming requests with plain text, html and other payloads.
+- cuteExpress.row parses incoming requests with plain text, html and other payloads.
 
 ## Third-party middleware
 
-Use third-party middleware to add functionality to Express apps.
+Use third-party middleware to add functionality to Cute Express apps.
 
 Install the Node.js module for the required functionality, then load it in your app at the application level or at the router level.
 
@@ -264,8 +264,8 @@ $ npm install cookie-parser
 ```
 
 ```js
-const express = require("express");
-const app = express();
+const cuteExpress = require("cute-express");
+const app = cuteExpress();
 const cookieParser = require("cookie-parser");
 // load the cookie-parsing middleware
 app.use(cookieParser());

@@ -6,28 +6,28 @@ title: API Reference 1.x
 
 <hr>
 
-## tinyExpress()
+## cuteExpress()
 
-Creates an Tiny Express application. The tinyExpress() function is a top-level function exported by the Tiny express module.
+Creates an Cute Express application. The cuteExpress() function is a top-level function exported by the Cute express module.
 
 ```js
-var tinyExpress = require("tiny-express");
-var app = tinyExpress();
+var cuteExpress = require("tiny-express");
+var app = cuteExpress();
 ```
 
 **Methods**
 
-### tinyExpress.json()
+### cuteExpress.json()
 
-This is a built-in middleware function in Tiny Express. It parses incoming requests with JSON payloads.
+This is a built-in middleware function in Cute Express. It parses incoming requests with JSON payloads.
 
 Returns middleware that only parses JSON and only looks at requests where the Content-Type header matches the type option.
 
 A new body object containing the parsed data is populated on the request object after the middleware (i.e. req.body), or an empty object ({}) if there was no body to parse, the Content-Type was not matched, or an error occurred.
 
-### tinyExpress.raw(options)
+### cuteExpress.raw(options)
 
-This is a built-in middleware function in Tiny Express. It parses incoming request payloads into a Buffer.
+This is a built-in middleware function in Cute Express. It parses incoming request payloads into a Buffer.
 
 Returns middleware that parses all bodies as a Buffer and only looks at requests where the Content-Type header matches the type option.
 
@@ -37,21 +37,21 @@ A new body Buffer containing the parsed data is populated on the request object 
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | type     | This is used to determine what media type the middleware will parse. This option can be a string. The value can be eather 'text/plain' or 'text/html' | 'text/plain' |
 
-### tinyExpress.Router()
+### cuteExpress.Router()
 
 Creates a new [router](/api_reference/api_reference_1.x.html#router) object.
 
 ```js
-var router = tinyExpress.Router();
+var router = cuteExpress.Router();
 ```
 
 You can add middleware and HTTP method routes (such as get, put, post, and so on) to router just like an application.
 
 For more information, see [Router](/api_reference/api_reference_1.x.html#router).
 
-### tinyExpress.urlencoded()
+### cuteExpress.urlencoded()
 
-This is a built-in middleware function in Tiny Express. It parses incoming requests with urlencoded payloads.
+This is a built-in middleware function in Cute Express. It parses incoming requests with urlencoded payloads.
 
 Returns middleware that only parses urlencoded bodies and only looks at requests where the Content-Type header matches the type option.
 
@@ -59,11 +59,11 @@ A new body object containing the parsed data is populated on the request object 
 
 ## Application
 
-The app object conventionally denotes the Tiny Express application. Create it by calling the top-level tinyExpress() function exported by the Tiny Express module:
+The app object conventionally denotes the Cute Express application. Create it by calling the top-level cuteExpress() function exported by the Cute Express module:
 
 ```js
-var tinyExpress = require("tiny-express");
-var app = tinyExpress();
+var cuteExpress = require("cute-express");
+var app = cuteExpress();
 
 app.get("/", function (req, res) {
   res.send("hello world");
@@ -170,18 +170,18 @@ Binds and listens for connections on the specified host and port. This method is
 The default `host` value is `localhost`. If the host is not defined the `localhost` will be applied as the `host` value.
 
 ```js
-var express = require("express");
-var app = express();
+var cuteExpress = require("cute-express");
+var app = cuteExpress();
 app.listen(3000);
 ```
 
-The app returned by `express()` is in fact a JavaScript Function, designed to be passed to Node’s HTTP servers as a callback to handle requests. This makes it easy to provide both HTTP and HTTPS versions of your app with the same code base, as the app does not inherit from these (it is simply a callback):
+The app returned by `cuteExpress()` is in fact a JavaScript Function, designed to be passed to Node’s HTTP servers as a callback to handle requests. This makes it easy to provide both HTTP and HTTPS versions of your app with the same code base, as the app does not inherit from these (it is simply a callback):
 
 ```js
-var express = require("express");
+var cuteExpress = require("cute-express");
 var https = require("https");
 var http = require("http");
-var app = express();
+var app = cuteExpress();
 
 http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
@@ -209,7 +209,7 @@ Routes an HTTP request, where METHOD is the HTTP method of the request, such as 
 
 #### Routing methods
 
-Tiny Express supports the following routing methods corresponding to the HTTP methods of the same names:
+Cute Express supports the following routing methods corresponding to the HTTP methods of the same names:
 
 - delete
 
@@ -270,7 +270,7 @@ app.put("/", function (req, res) {
 Returns an instance of a single route, which you can then use to handle HTTP verbs with optional middleware. Use app.route() to avoid duplicate route names (and thus typo errors).
 
 ```js
-var app = tinyExpress();
+var app = cuteExpress();
 
 app
   .route("/events")
@@ -433,16 +433,16 @@ app.use(function (req, res, next) {
 A router is valid middleware.
 
 ```js
-var router = tinyExpress.Router()
+var router = cuteExpress.Router()
 router.get('/', function (req, res, next) {
   next()
 })
 app.use(router)
 ```
-An Tiny Express app is valid middleware.
+An Cute Express app is valid middleware.
 
 ```js
-var subApp = tinyExpress()
+var subApp = cuteExpress()
 subApp.get('/', function (req, res, next) {
   next()
 })
@@ -459,12 +459,12 @@ Series of Middleware
 You can specify more than one middleware function at the same mount path.
 
 ```js
-var r1 = tinyExpress.Router()
+var r1 = cuteExpress.Router()
 r1.get('/', function (req, res, next) {
   next()
 })
 
-var r2 = tinyExpress.Router()
+var r2 = cuteExpress.Router()
 r2.get('/', function (req, res, next) {
   next()
 })
@@ -484,12 +484,12 @@ Use an array to group middleware logically.
 
 
 ```js
-var r1 = tinyExpress.Router()
+var r1 = cuteExpress.Router()
 r1.get('/', function (req, res, next) {
   next()
 })
 
-var r2 = tinyExpress.Router()
+var r2 = cuteExpress.Router()
 r2.get('/', function (req, res, next) {
   next()
 })
@@ -510,13 +510,13 @@ You can combine all the above ways of mounting middleware.
 function mw1 (req, res, next) { next() }
 function mw2 (req, res, next) { next() }
 
-var r1 = tinyExpress.Router()
+var r1 = cuteExpress.Router()
 r1.get('/', function (req, res, next) { next() })
 
-var r2 = tinyExpress.Router()
+var r2 = cuteExpress.Router()
 r2.get('/', function (req, res, next) { next() })
 
-var subApp = tinyExpress()
+var subApp = cuteExpress()
 subApp.get('/', function (req, res, next) { next() })
 
 app.use(mw1, [mw2, r1, r2], subApp)
@@ -551,7 +551,7 @@ The req object is an enhanced version of Node’s own request object and support
 
 ### req.body
 
-Contains key-value pairs of data submitted in the request body. By default, it is undefined, and is populated when you use body-parsing middleware such as tinyExpress.json() or tinyExpress.urlencoded().
+Contains key-value pairs of data submitted in the request body. By default, it is undefined, and is populated when you use body-parsing middleware such as cuteExpress.json() or cuteExpress.urlencoded().
 
 :::danger
 As req.body’s shape is based on user-controlled input, all properties and values in this object are untrusted and should be validated before trusting. For example, req.body.foo.toString() may fail in multiple ways, for example foo may not be there or may not be a string, and toString may not be a function and instead a string or other user-input.
@@ -560,12 +560,12 @@ As req.body’s shape is based on user-controlled input, all properties and valu
 The following example shows how to use body-parsing middleware to populate req.body.
 
 ```js
-var tinyExpress = require('tiny-express')
+var cuteExpress = require('tiny-express')
 
-var app = tinyExpress()
+var app = cuteExpress()
 
-app.use(tinyExpress.json()) // for parsing application/json
-app.use(tinyExpress.urlencoded()) // for parsing application/x-www-form-urlencoded
+app.use(cuteExpress.json()) // for parsing application/json
+app.use(cuteExpress.urlencoded()) // for parsing application/x-www-form-urlencoded
 
 app.post('/profile', function (req, res, next) {
   console.log(req.body)
@@ -659,11 +659,11 @@ res.status(404).sendFile('/absolute/path/to/404.png')
 
 ## Router
 
-A router object is an isolated instance of middleware and routes. You can think of it as a “mini-application,” capable only of performing middleware and routing functions. Every Express application has a built-in app router.
+A router object is an isolated instance of middleware and routes. You can think of it as a “mini-application,” capable only of performing middleware and routing functions. Every Cute Express application has a built-in app router.
 
 A router behaves like middleware itself, so you can use it as an argument to [app.use()](/api_reference/api_reference_1.x.html#app-use-path-callback-callback) or as the argument to another router’s [use()](/api_reference/api_reference_1.x.html#router-use-path-function-function) method.
 
-The top-level express object has a [Router()](/api_reference/api_reference_1.x.html#tinyexpress-router) method that creates a new router object.
+The top-level cute express object has a [Router()](/api_reference/api_reference_1.x.html#cuteexpress-router) method that creates a new router object.
 
 Once you’ve created a router object, you can add middleware and HTTP method routes (such as get, put, post, and so on) to it just like an application. For example:
 
@@ -713,11 +713,11 @@ router.all('/api/*', requireAuthentication)
 
 ### router.METHOD(path, [callback, ...] callback)
 
-The router.METHOD() methods provide the routing functionality in Express, where METHOD is one of the HTTP methods, such as GET, PUT, POST, and so on, in lowercase. Thus, the actual methods are router.get(), router.post(), router.put(), and so on.
+The router.METHOD() methods provide the routing functionality in Cute Express, where METHOD is one of the HTTP methods, such as GET, PUT, POST, and so on, in lowercase. Thus, the actual methods are router.get(), router.post(), router.put(), and so on.
 
 You can provide multiple callbacks, and all are treated equally, and behave just like middleware, except that these callbacks may invoke next('route') to bypass the remaining route callback(s). You can use this mechanism to perform pre-conditions on a route then pass control to subsequent routes when there is no reason to proceed with the route matched.
 
-The following snippet illustrates the most simple route definition possible. Express translates the path strings to regular expressions, used internally to match incoming requests. Query strings are not considered when performing these matches, for example “GET /” would match the following route, as would “GET /?name=tobi”.
+The following snippet illustrates the most simple route definition possible. Cute Express translates the path strings to regular expressions, used internally to match incoming requests. Query strings are not considered when performing these matches, for example “GET /” would match the following route, as would “GET /?name=tobi”.
 
 ```js
 router.get('/', function (req, res) {
@@ -743,7 +743,7 @@ Returns an instance of a single route which you can then use to handle HTTP verb
 Building on the router.param() example above, the following code shows how to use router.route() to specify various HTTP method handlers.
 
 ```js
-var router = express.Router()
+var router = cuteExpress.Router()
 
 router.param('user_id', function (req, res, next, id) {
   // sample user, would actually fetch from DB, etc...
@@ -793,9 +793,9 @@ Middleware is like a plumbing pipe: requests start at the first middleware funct
 
 
 ```js
-var express = require('express')
-var app = express()
-var router = express.Router()
+var cuteExpress = require('cute-express')
+var app = cuteExpress()
+var router = cuteExpress.Router()
 
 // simple logger for this router's requests
 // all requests to this router will first hit this middleware
@@ -840,8 +840,8 @@ The router.use() method also supports named parameters so that your mount points
 NOTE: Although these middleware functions are added via a particular router, when they run is defined by the path they are attached to (not the router). Therefore, middleware added via one router may run for other routers if its routes match. For example, this code shows two different routers mounted on the same path:
 
 ```js
-var authRouter = express.Router()
-var openRouter = express.Router()
+var authRouter = cuteExpress.Router()
+var openRouter = cuteExpress.Router()
 
 authRouter.use(require('./authenticate').basic(usersdb))
 

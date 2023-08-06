@@ -17,7 +17,7 @@ const handleRequest = function (req, res) {
   const methodName = req.method.toUpperCase();
   // handle unsupported http method type
   if (!Routes._allSupportedMethods[methodName]) {
-    res.end(`Tiny Express Doesn't Support ${methodName} http method type`)
+    res.end(`Cute Express Doesn't Support ${methodName} http method type`)
     return
   }
   const reqUrl = req.url;

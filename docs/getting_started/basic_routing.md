@@ -16,13 +16,13 @@ app.METHOD(PATH, HANDLER)
 
 Where:
 
-- app is an instance of tiny express.
+- app is an instance of cute express.
 - METHOD is an HTTP request method, in lowercase.
 - PATH is a path on the server.
 - HANDLER is the function executed when the route is matched.
 
 :::info
-This tutorial assumes that an instance of tiny express named app is created and the server is running. If you are not familiar with creating an app and starting it, see the [Hello world example](./hello_world.md).
+This tutorial assumes that an instance of cute express named app is created and the server is running. If you are not familiar with creating an app and starting it, see the [Hello world example](./hello_world.md).
 :::
 
 ## Route Examples

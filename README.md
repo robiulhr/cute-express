@@ -1,12 +1,12 @@
-# Tiny Express
+# Cute Express
 
-Tiny Express is a custom implementation of the popular Node.js web application framework Express js.
+Cute Express is a custom implementation of the popular Node.js web application framework Express js.
 
 Fast, unopinionated, minimalist web framework for [Node.js](https://nodejs.org/en).
 
 ```js
-const tinyExpress = require('tiny-express')
-const app = tinyExpress()
+const cuteExpress = require('cute-express')
+const app = cuteExpress()
 
 app.get('/', function (req, res) {
   res.send('Hello World')
@@ -26,10 +26,10 @@ If this is a brand new project, make sure to create a package.json first with th
 Installation is done using the [`npm install` command](https://docs.npmjs.com/downloading-and-installing-packages-locally):
 
 ```bash
-$ npm install express
+$ npm install cute-express
 ```
 
-Follow our [installing guide](https://robiulhr.github.io/tiny-express/getting_started/installing.html) for more information.
+Follow our [installing guide](https://robiulhr.github.io/cute-express/getting_started/installing.html) for more information.
 
 ## Features
 
@@ -43,7 +43,7 @@ Follow our [installing guide](https://robiulhr.github.io/tiny-express/getting_st
 
 ## Docs
 
-- [Website and Documentation](https://robiulhr.github.io/tiny-express/)
+- [Website and Documentation](https://robiulhr.github.io/cute-express/)
 
 ## License
 

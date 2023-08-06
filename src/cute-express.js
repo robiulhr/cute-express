@@ -4,20 +4,20 @@ const middleware = require("./middleware/Middleware");
 const Router = require("./router/Router");
 const bodyParser = require('./build-in middlewares/bodyParser');
 
-const tinyExpress = function () {
+const cuteExpress = function () {
   const AllMethodsAndobjs = { ...app, ...route, ...middleware };
-  // adding all methods and objects in tinyExpress
+  // adding all methods and objects in cuteExpress
   for (let ele in AllMethodsAndobjs) {
     app.handleRequest[ele] = AllMethodsAndobjs[ele];
   }
   return app.handleRequest;
 };
 
-// adding Router to the tinyExpress object
-tinyExpress["Router"] = Router;
-// adding body parser methods to the tinyExpress object
+// adding Router to the cuteExpress object
+cuteExpress["Router"] = Router;
+// adding body parser methods to the cuteExpress object
 for (let elements in bodyParser) {
-  tinyExpress[elements] = bodyParser[elements]
+  cuteExpress[elements] = bodyParser[elements]
 }
 
-module.exports = tinyExpress;
+module.exports = cuteExpress;

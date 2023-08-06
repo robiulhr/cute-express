@@ -1,12 +1,12 @@
-// import  tinyExpress
-const tinyExpress = require("../../../../src/tiny-express");
-const app = tinyExpress();
+// import  cuteExpress
+const cuteExpress = require("../../../../src/cute-express");
+const app = cuteExpress();
 
 // parse application/x-www-form-urlencoded
-app.use(tinyExpress.urlencoded());
+app.use(cuteExpress.urlencoded());
 
 // parse application/json
-app.use(tinyExpress.json());
+app.use(cuteExpress.json());
 
 app.use(bodyParser.row({ type: 'text/html' }))
 app.use((req, res, next) => {

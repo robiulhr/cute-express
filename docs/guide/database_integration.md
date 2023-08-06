@@ -4,7 +4,7 @@ title: Database integration
 
 # Database integration
 
-Adding the capability to connect databases to Tiny Express apps is just a matter of loading an appropriate Node.js driver for the database in your app. This document briefly explains how to add and use some of the most popular Node.js modules for database systems in your Tiny Express app:
+Adding the capability to connect databases to Cute Express apps is just a matter of loading an appropriate Node.js driver for the database in your app. This document briefly explains how to add and use some of the most popular Node.js modules for database systems in your Cute Express app:
 
 - MongoDB
 

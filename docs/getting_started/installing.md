@@ -26,16 +26,16 @@ entry point: (index.js)
 
 Enter app.js, or whatever you want the name of the main file to be. If you want it to be index.js, hit RETURN to accept the suggested default file name.
 
-Now install Tiny Express in the myapp directory and save it in the dependencies list. For example:
+Now install Cute Express in the myapp directory and save it in the dependencies list. For example:
 
 ```
-$ npm install tiny-express
+$ npm install cute-express
 ```
 
-To install Tiny Express temporarily and not add it to the dependencies list:
+To install Cute Express temporarily and not add it to the dependencies list:
 
 ```
-$ npm install tiny-express --no-save
+$ npm install cute-express --no-save
 ```
 
 ::: info

@@ -1,8 +1,8 @@
 // .vitepress/config.js
 export default {
-    title: "Tiny Express",
+    title: "Cute Express",
     description: "Fast, unopinionated, minimalist web framework for Node.js",
-    base: "/tiny-express/",
+    base: "/cute-express/",
     themeConfig: {
         cleanUrls: true,
         nav: [
@@ -19,7 +19,7 @@ export default {
                     { text: "Routing", link: "/guide/routing" },
                     { text: "Writing Middleware", link: "/guide/writing_middleware" },
                     { text: "Using Middleware", link: "/guide/using_middleware" },
-                    { text: "Overriding the Tiny Express API", link: "/guide/overriding_the_express_api" },
+                    { text: "Overriding the Cute Express API", link: "/guide/overriding_the_express_api" },
                     { text: "Error Handling", link: "/guide/error_handling" },
                     { text: "Database Integration", link: "/guide/database_integration" },
                     { text: "Examples", link: "/guide/examples" },
@@ -35,7 +35,7 @@ export default {
 
         ],
         socialLinks: [
-            { icon: "github", link: "https://github.com/robiulhr/tiny-express" },
+            { icon: "github", link: "https://github.com/robiulhr/cute-express" },
             { icon: "twitter", link: "https://twitter.com/robiulhr01" },
             { icon: "linkedin", link: "https://linkedin.com/in/robiulhr" },
         ],
@@ -59,7 +59,7 @@ export default {
                         { text: "Routing", link: "/guide/routing" },
                         { text: "Writing Middleware", link: "/guide/writing_middleware" },
                         { text: "Using Middleware", link: "/guide/using_middleware" },
-                        { text: "Overriding the Tiny Express API", link: "/guide/overriding_the_express_api" },
+                        { text: "Overriding the Cute Express API", link: "/guide/overriding_the_express_api" },
                         { text: "Error Handling", link: "/guide/error_handling" },
                         { text: "Database Integration", link: "/guide/database_integration" },
                         { text: "Examples", link: "/guide/examples" },
@@ -72,12 +72,12 @@ export default {
                     collapsible: true,
                     items: [
                         {
-                            text: "tinyExpress()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress", items: [
+                            text: "cuteExpress()", collapsible: true, link: "/api_reference/api_reference_1.x.html#cuteexpress", items: [
                                 { text: "Methods" },
-                                { text: "tinyExpress.json()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-json" },
-                                { text: "tinyExpress.raw()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-raw-options" },
-                                { text: "tinyExpress.Router()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-router" },
-                                { text: "tinyExpress.urlencoded()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-urlencoded" },
+                                { text: "cuteExpress.json()", collapsible: true, link: "/api_reference/api_reference_1.x.html#cuteexpress-json" },
+                                { text: "cuteExpress.raw()", collapsible: true, link: "/api_reference/api_reference_1.x.html#cuteexpress-raw-options" },
+                                { text: "cuteExpress.Router()", collapsible: true, link: "/api_reference/api_reference_1.x.html#cuteexpress-router" },
+                                { text: "cuteExpress.urlencoded()", collapsible: true, link: "/api_reference/api_reference_1.x.html#cuteexpress-urlencoded" },
                             ]
                         },
                         {

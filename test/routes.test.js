@@ -1,6 +1,6 @@
 const request = require('supertest');
-const express = require('../src/tiny-express');
-const app = express()
+const cuteExpress = require('../src/cute-express');
+const app = cuteExpress()
 
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'API data response' });

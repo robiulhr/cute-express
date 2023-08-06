@@ -1,6 +1,6 @@
-// express
-const express = require("../../../../src/tiny-express")
-const router = express.Router()
+// cuteExpress
+const cuteExpress = require("../../../../src/cute-express")
+const router = cuteExpress.Router()
 
 // controllers
 const viewPollController = require("../controllers/poll/viewPollController");

@@ -1,12 +1,12 @@
 ---
-title: Writing middleware for use in Tiny Express apps
+title: Writing middleware for use in Cute Express apps
 ---
 
-# Writing middleware for use in Tiny Express apps
+# Writing middleware for use in Cute Express apps
 
 ## Overview
 
-Middleware functions are functions that have access to the [request object (req)](/api_reference/api_reference_1.x.html#request), the [response object (res)](/api_reference/api_reference_1.x.html#response), and the next function in the application’s request-response cycle. The next function is a function in the Tiny Express router which, when invoked, executes the middleware succeeding the current middleware.
+Middleware functions are functions that have access to the [request object (req)](/api_reference/api_reference_1.x.html#request), the [response object (res)](/api_reference/api_reference_1.x.html#response), and the next function in the application’s request-response cycle. The next function is a function in the Cute Express router which, when invoked, executes the middleware succeeding the current middleware.
 
 Middleware functions can perform the following tasks:
 
@@ -24,16 +24,16 @@ The following figure shows the elements of a middleware function call:
 
 |                                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![tiny express middleware](../img/express-mw.png) | HTTP method for which the <br>middleware function applies. <br><br> Path (route) for which the <br>middleware function applies.<br><br> The middleware function. <br>Callback argument to the <br>middleware function, called "next" by convention.<br><br> HTTP [response](/api_reference/api_reference_1.x.html#request) argument to the <br>middleware function, called "res" by convention. <br><br> HTTP [request](/api_reference/api_reference_1.x.html#response) argument to the <br>middleware function, called "req" by convention. |
+| ![cute express middleware](../img/express-mw.png) | HTTP method for which the <br>middleware function applies. <br><br> Path (route) for which the <br>middleware function applies.<br><br> The middleware function. <br>Callback argument to the <br>middleware function, called "next" by convention.<br><br> HTTP [response](/api_reference/api_reference_1.x.html#request) argument to the <br>middleware function, called "res" by convention. <br><br> HTTP [request](/api_reference/api_reference_1.x.html#response) argument to the <br>middleware function, called "req" by convention. |
 
 
 ## Example
 
-Here is an example of a simple “Hello World” Tiny Express application. The remainder of this article will define and add three middleware functions to the application: one called myLogger that prints a simple log message, one called requestTime that displays the timestamp of the HTTP request
+Here is an example of a simple “Hello World” Cute Express application. The remainder of this article will define and add three middleware functions to the application: one called myLogger that prints a simple log message, one called requestTime that displays the timestamp of the HTTP request
 
 ```js
-const tinyExpress = require('tiny-express')
-const app = tinyExpress()
+const cuteExpress = require('cute-express')
+const app = cuteExpress()
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -54,14 +54,14 @@ const myLogger = function (req, res, next) {
 ```
 
 :::info
-Notice the call above to next(). Calling this function invokes the next middleware function in the app. The next() function is not a part of the Node.js or Tiny Express API, but is the third argument that is passed to the middleware function. The next() function could be named anything, but by convention it is always named “next”. To avoid confusion, always use this convention.
+Notice the call above to next(). Calling this function invokes the next middleware function in the app. The next() function is not a part of the Node.js or Cute Express API, but is the third argument that is passed to the middleware function. The next() function could be named anything, but by convention it is always named “next”. To avoid confusion, always use this convention.
 :::
 
 To load the middleware function, call app.use(), specifying the middleware function. For example, the following code loads the myLogger middleware function before the route to the root path (/).
 
 ```js
-const tinyExpress = require('tiny-express')
-const app = tinyExpress()
+const cuteExpress = require('cute-express')
+const app = cuteExpress()
 
 const myLogger = function (req, res, next) {
   console.log('LOGGED')
@@ -102,8 +102,8 @@ const requestTime = function (req, res, next) {
 The app now uses the requestTime middleware function. Also, the callback function of the root path route uses the property that the middleware function adds to req (the request object).
 
 ```js
-const express = require('express')
-const app = express()
+const cuteExpress = require('cute-express')
+const app = cuteExpress()
 
 const requestTime = function (req, res, next) {
   req.requestTime = Date.now()

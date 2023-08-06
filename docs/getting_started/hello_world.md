@@ -7,12 +7,12 @@ title: Hello World
 
 
 :::info
-Embedded below is essentially the simplest Tiny Express app you can create.
+Embedded below is essentially the simplest Cute Express app you can create.
 :::
 
 ```js
-const tinyExpress = require('tiny-express')
-const app = tinyExpress()
+const cuteExpress = require('cute-express')
+const app = cuteExpress()
 const port = 3000
 
 app.get('/', (req, res) => {
@@ -28,13 +28,13 @@ This app starts a server and listens on port `3000` for connections. The app res
 
 ## Running Locally
 
-First create a directory named `myapp`, change to it and run npm init. Then install tiny-express as a dependency, as per the [installation guide](./installing.md).
+First create a directory named `myapp`, change to it and run npm init. Then install cute-express as a dependency, as per the [installation guide](./installing.md).
 
 In the `myapp` directory, create a file named `app.js` and copy in the code from the example above.
 
 
 :::info
-The req (request) and res (response) are the exact same objects that Node provides, so you can invoke req.pipe(), req.on('data', callback), and anything else you would do without Tiny Express involved.
+The req (request) and res (response) are the exact same objects that Node provides, so you can invoke req.pipe(), req.on('data', callback), and anything else you would do without Cute Express involved.
 :::
 
 Run the app with the following command:
