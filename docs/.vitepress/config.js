@@ -74,8 +74,8 @@ export default {
                             text: "tinyExpress()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress", items: [
                                 { text: "Methods" },
                                 { text: "tinyExpress.json()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-json" },
-                                { text: "tinyExpress.raw()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-raw" },
-                                { text: "tinyExpress.Router()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-router-options" },
+                                { text: "tinyExpress.raw()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-raw-options" },
+                                { text: "tinyExpress.Router()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-router" },
                                 { text: "tinyExpress.urlencoded()", collapsible: true, link: "/api_reference/api_reference_1.x.html#tinyexpress-urlencoded" },
                             ]
                         },
@@ -93,6 +93,31 @@ export default {
                                 { text: "app.use()", collapsible: true, link: "/api_reference/api_reference_1.x.html#app-use-path-callback-callback" },
                             ]
                         },
+                        {
+                            text: "Request", collapsible: true, link: "/api_reference/api_reference_1.x.html#request", items: [
+                                { text: "Properties" },
+                                { text: "app.body", collapsible: true, link: "/api_reference/api_reference_1.x.html#req-body" },
+                            ]
+                        },
+                        {
+                            text: "Response", collapsible: true, link: "/api_reference/api_reference_1.x.html#response", items: [
+                                { text: "Methods" },
+                                { text: "res.end()", collapsible: true, link: "/api_reference/api_reference_1.x.html#res-end-data" },
+                                { text: "res.json()", collapsible: true, link: "/api_reference/api_reference_1.x.html#res-json-body" },
+                                { text: "res.redirect()", collapsible: true, link: "/api_reference/api_reference_1.x.html#res-redirect-status-path" },
+                                { text: "res.send()", collapsible: true, link: "/api_reference/api_reference_1.x.html#res-send-body" },
+                                { text: "res.set()", collapsible: true, link: "/api_reference/api_reference_1.x.html#res-set-field-value" },
+                                { text: "res.status()", collapsible: true, link: "/api_reference/api_reference_1.x.html#res-status-code" },
+                            ]
+                        }, {
+                            text: "Router", collapsible: true, link: "/api_reference/api_reference_1.x.html#router", items: [
+                                { text: "Methods" },
+                                { text: "router.all()", collapsible: true, link: "/api_reference/api_reference_1.x.html#router-all-path-callback-callback" },
+                                { text: "router.method()", collapsible: true, link: "/api_reference/api_reference_1.x.html#router-method-path-callback-callback" },
+                                { text: "router.route()", collapsible: true, link: "/api_reference/api_reference_1.x.html#router-route-path" },
+                                { text: "router.use()", collapsible: true, link: "/api_reference/api_reference_1.x.html#router-use-path-function-function" },
+                            ]
+                        }
                     ],
                 }
             ]
