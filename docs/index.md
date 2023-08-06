@@ -1,7 +1,7 @@
 ---
 layout: home
-title: VitePress
-titleTemplate: Vite & Vue powered static site generator
+title: Tiny Express
+description: Fast, unopinionated, minimalist web framework for Node.js
 hero:
   name: "Tiny Express"
   text: "Fast, unopinionated, minimalist web framework for Node.js"

@@ -1,7 +1,7 @@
 // .vitepress/config.js
 export default {
     title: "Tiny Express",
-    description: "An awesome docs template built by me",
+    description: "Fast, unopinionated, minimalist web framework for Node.js",
     base: "/tiny-express/",
     themeConfig: {
         cleanUrls: true,
