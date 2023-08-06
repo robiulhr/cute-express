@@ -8,6 +8,19 @@
     "example": "examples",
     "test": "test"
   },
+  "keywords": [
+    "cute-express",
+    "express",
+    "framework",
+    "node",
+    "web",
+    "http",
+    "rest",
+    "restful",
+    "router",
+    "app",
+    "api"
+  ],
   "scripts": {
     "test": "jest --watchAll",
     "docs:dev": "vitepress dev docs",

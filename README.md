@@ -48,3 +48,8 @@ Follow our [installing guide](https://robiulhr.github.io/cute-express/getting_st
 ## License
 
 [MIT](./LICENSE)
+
+
+# Author
+
+- [Blog](https://robiul.dev/)
