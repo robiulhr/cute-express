@@ -32,7 +32,7 @@ const routeMethodInputsHandler = function (inputs) {
   let path, handlers = [];
   inputs.forEach((ele, ind) => {
     // if path is not provided than the default path will be "/" root path
-    if (ind === 0) typeof ele === "string" || (typeof ele === "object" && ele.test) ? path = ele : path = "/" && handlers.push(ele)
+    if (ind === 0) typeof ele === "string" || (typeof ele === "object" && ele.test) ? path = ele : handlers.push(ele)
     else handlers.push(ele)
   })
   return { path, handlers }

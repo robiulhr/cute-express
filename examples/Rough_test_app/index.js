@@ -3,6 +3,11 @@ const app = cuteExpress()
 const router = cuteExpress.Router()
 const port = 4000
 
+// A simple middleware
+app.use((req, res, next) => {
+  console.log('A request is coming in...');
+  next(); // Don't forget to call next to continue the flow
+});
 
 app.get("/",(req, res,next) => {
   console.log("hello world")
@@ -12,6 +17,9 @@ app.get("/",(req, res,next) => {
   res.send("hello world")
   //  next(new Error('BROKEN')) // Cute Express will catch this on its own.
 })
+
+
+
 
 app.get("/ab/cd", (req, res) => {
   res.send("ab?cd");

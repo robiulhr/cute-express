@@ -3,13 +3,14 @@ const {
   checkPureObject,
   isEmptyObject,
 } = require("../globalUtils/globalUtils");
-const { handlersSimplifierInArr } = require("../globalService/globalService");
+const { handlersSimplifierInArr, routeMethodInputsHandler } = require("../globalService/globalService");
 const route = require("../route/Route");
 const middleware = {
   _allGlobalMiddlewares: [],
 };
 
-middleware.use = function (path, ...handlers) {
+middleware.use = function (...inputs) {
+  const {path, handlers} = routeMethodInputsHandler(inputs)
   // simplify the input handlers in simple Array
   const handlersArr = handlersSimplifierInArr(handlers);
   handlersArr.forEach(handler => {
@@ -47,13 +48,15 @@ middleware.use = function (path, ...handlers) {
           })
         }
       }
-    } else if (isFunction(path)) {
-      /**
-       * Middlewares handler
-       * only one parameter
-       * Exampe call: use(callback)
-       */
-      this._allGlobalMiddlewares.push(path);
+    } else {
+      if (!path) {
+        /**
+         * Middlewares handler
+         * only one parameter
+         * Exampe call: use(callback)
+         */
+        this._allGlobalMiddlewares.push(handler);
+      }
     }
   })
 };
