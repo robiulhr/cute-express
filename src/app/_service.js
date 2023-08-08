@@ -1,6 +1,5 @@
 const { defaultHandler } = require("../globalService/globalService");
 
-
 /**
  * 
  * @param {String} registeredUrl 
@@ -25,22 +24,28 @@ const reqParamsHandler = function (registereSpliteddUrlArr, reqUrl, reqObject) {
  * @param {String} reqUrl 
  * @returns {Function,Array}
  */
-const matchRouteHandlerReqUrl = function (registereSpliteddUrlArr, reqUrl) {
-  const reqUrlParts = reqUrl.split('/').filter(ele => ele !== "");
-  if (registereSpliteddUrlArr.length !== reqUrlParts.length) return false;
-  let result = true
-  registereSpliteddUrlArr.forEach((registeredUrlPart, ind) => {
-    if (!registeredUrlPart.startsWith(':')) {
-      // creating regex for the registered path adding ^ and $ start-of-line and end-of-line respectively
-      const modifiedUrlPart = (registeredUrlPart.startsWith("^") ? "" : "^") + registeredUrlPart + (registeredUrlPart.endsWith("$") ? "" : "$")
-      const urlRegx = new RegExp(modifiedUrlPart)
-      if (!urlRegx.test(reqUrlParts[ind])) {
-        result = false
-        return result
+const matchRouteHandlerReqUrl = function (registeredPathRegex, registereSpliteddUrlArr, reqUrl) {
+  console.log(registeredPathRegex,"registeredPathRegex")
+  if (registeredPathRegex) {
+    return registeredPathRegex.test(reqUrl)
+  } else {
+    const reqUrlParts = reqUrl.split('/').filter(ele => ele !== "");
+    if (registereSpliteddUrlArr.length !== reqUrlParts.length) return false;
+    let result = true
+    registereSpliteddUrlArr.forEach((registeredUrlPart, ind) => {
+      if (!registeredUrlPart.startsWith(':')) {
+        // creating regex for the registered path adding ^ and $ start-of-line and end-of-line respectively
+        const modifiedUrlPart = (registeredUrlPart.startsWith("^") ? "" : "^") + registeredUrlPart + (registeredUrlPart.endsWith("$") ? "" : "$")
+        const urlRegx = new RegExp(modifiedUrlPart)
+        if (!urlRegx.test(reqUrlParts[ind])) {
+          result = false
+          return result
+        }
       }
-    }
-  })
-  return result
+    })
+    return result
+  }
+
 }
 
 /**
@@ -76,12 +81,14 @@ const selectRouteHandler = function (routes, methodName, reqUrl, reqObject) {
       if (registereSpliteddUrl = "splitedPath") {
         // defining splitedpath array of the url path 
         const registereSpliteddUrlArr = AllHandlersForTheMethod[registeredUrl][registereSpliteddUrl]
+        // defining regex of the url path 
+        const registeredPathRegex = AllHandlersForTheMethod[registeredUrl]["pathRegex"]
         if (reqUrl === '/') {
           if (AllHandlersForTheMethod[reqUrl]) routeHandlers = AllHandlersForTheMethod[reqUrl].handlers;
           else routeHandlers = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
           return routeHandlers
         }
-        else if (!matchRouteHandlerReqUrl(registereSpliteddUrlArr, reqUrl)) {
+        else if (!matchRouteHandlerReqUrl(registeredPathRegex, registereSpliteddUrlArr, reqUrl)) {
           routeHandlers = passDefaultHandler(AllHandlersForTheMethod, defaultHandler)
         } else {
           routeHandlers = AllHandlersForTheMethod[registeredUrl].handlers;
@@ -111,7 +118,7 @@ const callRouteHandlerAndMiddlewares = function (
 ) {
   let ind = 0;
   function next() {
-    if (ind < routeHandlerAndMiddlewares.length-1) {
+    if (ind < routeHandlerAndMiddlewares.length - 1) {
       const singleMiddleware = routeHandlerAndMiddlewares[ind];
       ind++;
       // calling middleware for this route
@@ -119,7 +126,7 @@ const callRouteHandlerAndMiddlewares = function (
     } else {
       const routeHandler = routeHandlerAndMiddlewares[ind]
       // calling the route handler
-      if(routeHandler) routeHandler(reqObject, resObject);
+      if (routeHandler) routeHandler(reqObject, resObject);
     }
   }
   next();

@@ -18,7 +18,7 @@ const bodyParser = {
     return function urlencodedParser(req, res, next) {
       const reqMethod = req.method.toUpperCase();
       if (
-        reqMethod === "POST" ||
+        reqMethod === "GET" || reqMethod === "DELETE" || reqMethod === "POST" ||
         reqMethod === "PUT" ||
         reqMethod === "PATCH"
       ) {
@@ -63,7 +63,7 @@ const bodyParser = {
     return function jsonParser(req, res, next) {
       const reqMethod = req.method.toUpperCase();
       if (
-        reqMethod === "POST" ||
+        reqMethod === "GET" || reqMethod === "DELETE" || reqMethod === "POST" ||
         reqMethod === "PUT" ||
         reqMethod === "PATCH"
       ) {

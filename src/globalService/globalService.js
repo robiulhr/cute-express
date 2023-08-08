@@ -32,10 +32,10 @@ const routeMethodInputsHandler = function (inputs) {
   let path, handlers = [];
   inputs.forEach((ele, ind) => {
     // if path is not provided than the default path will be "/" root path
-    if (ind === 0) typeof ele === "string" ? path = ele : path = "/" && handlers.push(ele)
+    if (ind === 0) typeof ele === "string" || (typeof ele === "object" && ele.test) ? path = ele : path = "/" && handlers.push(ele)
     else handlers.push(ele)
   })
-  return {path,handlers}
+  return { path, handlers }
 }
 
 /**
@@ -48,7 +48,10 @@ const routeMethodInputsHandler = function (inputs) {
  */
 const handlerAssigner = function (methodType, allRouteObj, path, handlers) {
   let strPath = path
-  if (typeof strPath !== "string") strPath = String(strPath);
+  let pathRegex;
+  if (typeof strPath === "object" && strPath.test) {
+    pathRegex = new RegExp(path)
+  }
   if (handlers.length < 1) {
     console.log("please, provide a handler.");
     return;
@@ -61,7 +64,10 @@ const handlerAssigner = function (methodType, allRouteObj, path, handlers) {
   if (path === "/") {
     splitedPath = ['/']
   }
-  splitedPath = strPath.split('/').filter(ele => ele !== "")
+  // if path is not a regex expression
+  if (!pathRegex && !splitedPath) {
+    splitedPath = strPath.split('/').filter(ele => ele !== "")
+  }
   // if handler for this path already exist
   if (allRouteObj[methodType][strPath]) {
     handlers.forEach(ele => {
@@ -70,9 +76,11 @@ const handlerAssigner = function (methodType, allRouteObj, path, handlers) {
   } else {
     allRouteObj[methodType][strPath] = {
       splitedPath,
-      handlers
+      handlers,
+      pathRegex
     }
   }
+  console.log(allRouteObj[methodType][strPath],"allRouteObj[methodType][strPath]")
 };
 
 

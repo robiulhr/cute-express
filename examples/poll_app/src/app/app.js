@@ -1,5 +1,5 @@
 // import  cuteExpress
-const cuteExpress = require("../../../../src/cute-express");
+const cuteExpress = require("../../../../index");
 const app = cuteExpress();
 
 // parse application/x-www-form-urlencoded

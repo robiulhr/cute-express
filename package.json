@@ -1,6 +1,6 @@
 {
   "name": "cute-express",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Cute Express is a custom implementation of the popular Node.js web application framework Express js.",
   "main": "",
   "directories": {
