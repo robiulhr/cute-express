@@ -25,7 +25,6 @@ const reqParamsHandler = function (registereSpliteddUrlArr, reqUrl, reqObject) {
  * @returns {Function,Array}
  */
 const matchRouteHandlerReqUrl = function (registeredPathRegex, registereSpliteddUrlArr, reqUrl) {
-  console.log(registeredPathRegex,"registeredPathRegex")
   if (registeredPathRegex) {
     return registeredPathRegex.test(reqUrl)
   } else {

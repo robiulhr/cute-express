@@ -80,7 +80,6 @@ const handlerAssigner = function (methodType, allRouteObj, path, handlers) {
       pathRegex
     }
   }
-  console.log(allRouteObj[methodType][strPath],"allRouteObj[methodType][strPath]")
 };
 
 
